@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+name="spice-protocol"
+version="0.14.4"
+url="https://gitlab.freedesktop.org/spice/spice-protocol"
+description="Headers defining the SPICE protocol"
+source="https://gitlab.freedesktop.org/spice/spice-protocol/-/archive/v${version}/spice-protocol-v${version}.tar.gz"
+group="app.emulation"
+
+setup(){
+cd $SOURCEDIR
+    meson setup $BUILDDIR --prefix=/usr \
+        --libdir=/usr/lib64/
+}
+
+build(){
+    ninja -C $BUILDDIR
+}
+
+package(){
+   DESTDIR=$DESTDIR ninja -C $BUILDDIR install
+}
+
