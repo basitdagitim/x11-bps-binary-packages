@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+name="libgudev"
+
+version="238"
+url="https://example.org"
+description="GObject bindings for libudev"
+source="https://gitlab.gnome.org/GNOME/libgudev/-/archive/$version/libgudev-$version.tar.gz"
+depends="glib,eudev"
+makedepend=""
+group="dev.libs"
+
+setup(){
+cd $SOURCEDIR
+    meson setup $BUILDDIR --prefix=/usr \
+        --libdir=/usr/lib64/
+}
+
+build(){
+    ninja -C $BUILDDIR 
+}
+
+package(){
+   DESTDIR=$DESTDIR ninja -C $BUILDDIR  install
+}
+
