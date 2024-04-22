@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+name="json-glib"
+
+version="1.8.0"
+url="https://gitlab.gnome.org/GNOME/json-glib.git/"
+description="Library providing GLib serialization and deserialization for the JSON format"
+source="https://gitlab.gnome.org/GNOME/json-glib/-/archive/$version/json-glib-$version.tar.gz"
+depends="glib"
+group="dev.libs"
+
+setup(){
+cd $SOURCEDIR
+    meson setup $BUILDDIR --prefix=/usr \
+        --libdir=/usr/lib64/
+}
+
+build(){
+    ninja -C $BUILDDIR
+}
+
+package(){
+   DESTDIR=$DESTDIR ninja -C $BUILDDIR install
+}
+

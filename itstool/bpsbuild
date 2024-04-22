@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+name="itstool"
+version="2.0.7"
+url="https://github.com/itstool/itstool"
+description=" Translation tool for XML documents that uses gettext files and ITS rules "
+source="https://github.com/itstool/itstool/archive/refs/tags/$version.tar.gz"
+depends=(libxml2)
+group="dev.util"
+setup(){
+cd $SOURCEDIR
+	./autogen.sh
+    ./configure --prefix=/usr \
+        --libdir=/usr/lib64/
+}
+
+build(){
+    make
+}
+
+package(){
+    make install DESTDIR=$DESTDIR
+}
+

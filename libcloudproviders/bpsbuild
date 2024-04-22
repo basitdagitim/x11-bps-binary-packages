@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+name="libcloudproviders"
+version="0.3.1"
+url="https://gitlab.gnome.org/World/libcloudproviders"
+description="DBus API that allows cloud storage sync clients to expose their services"
+source="https://gitlab.gnome.org/World/libcloudproviders/-/archive/$version/libcloudproviders-$version.tar.gz"
+depends="zlib,util-linux,libffi,libpcre2"
+makedepends="git,meson,vala,gobject-introspection"
+group="net.libs"
+
+setup(){
+cd $SOURCEDIR
+    meson setup $BUILDDIR --prefix=/usr \
+        --libdir=/usr/lib64/
+}
+
+build(){
+    ninja -C $BUILDDIR
+        --libdir=/usr/lib64/
+}
+
+package(){
+   DESTDIR=$DESTDIR ninja -C $BUILDDIR install
+}
+

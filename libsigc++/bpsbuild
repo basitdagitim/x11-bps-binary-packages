@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+name="libsigc++"
+version="3.4.0"
+url="https://example.org"
+description="Typesafe callback system for standard C++"
+source=("https://github.com/libsigcplusplus/libsigcplusplus/archive/refs/tags/$version.tar.gz")
+group="dev.libs"
+
+setup () {
+cd $SOURCEDIR
+    meson setup $BUILDDIR --prefix=/usr \
+     --libdir=/usr/lib64/
+}
+
+build () {
+    ninja -C $BUILDDIR $jobs
+}
+
+package () {
+   DESTDIR=$DESTDIR ninja -C $BUILDDIR install $jobs
+}
+
