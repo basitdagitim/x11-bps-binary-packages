@@ -8,6 +8,7 @@ group="x11.libs"
 
 
 setup(){
+cd  $SOURCEDIR
 	autoreconf -fvi
     $SOURCEDIR/configure --prefix=/usr \
         --libdir=/usr/lib64/ \
@@ -21,7 +22,10 @@ build(){
 }
 
 package(){
-mkdir -p $DESTDIR/usr/share/X11/xkb
+#mkdir -p $DESTDIR/usr/share/X11/xkb
     make install DESTDIR=$DESTDIR $jobs
+    mkdir -p $DESTDIR/usr/lib64/pkgconfig
+    install $SOURCEDIR/libxklavier.pc $DESTDIR/usr/lib64/pkgconfig/libxklavier.pc
+
 }
 
