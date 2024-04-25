@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+name="unbound"
+version="1.19.3"
+
+url="https://nlnetlabs.nl/projects/unbound/download/"
+description="unbound nettle"
+source="https://nlnetlabs.nl/downloads/unbound/unbound-1.19.3.tar.gz"
+depends=""
+group="net.libs"
+setup(){
+cd $SOURCEDIR
+    ./configure --prefix=/usr \
+    --libdir=/usr/lib64 \
+   
+
+}
+
+build(){
+    make $jobs
+}
+
+package(){
+    make install DESTDIR=$DESTDIR $jobs
+}
+
