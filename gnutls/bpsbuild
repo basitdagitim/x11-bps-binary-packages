@@ -1,11 +1,10 @@
 #!/usr/bin/env bash
 name="gnutls"
 version="3.8.0"
-_version="3.8"
 url="https://www.gnupg.org/ftp/gcrypt/gnutls"
 description="The GnuTLS Transport Layer Security Library"
 
-source="https://www.gnupg.org/ftp/gcrypt/gnutls/v${_version}/gnutls-${version}.tar.xz"
+source="https://www.gnupg.org/ftp/gcrypt/gnutls/v${version%.*}/gnutls-${version}.tar.xz"
 depends="nettle,p11-kit,unbound"
 
 group="net.libs"
