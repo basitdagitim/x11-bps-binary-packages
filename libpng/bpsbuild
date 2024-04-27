@@ -6,10 +6,10 @@ source="https://salsa.debian.org/debian/libpng1.6/-/archive/debian/$version-2/li
 depends="zlib"
 group="media.libs"
 
-cd ${name}1.6-debian-$version-2
 
 setup(){
-    ../${name}-${version}/configure --prefix=/usr \
+	cd $SOURCEDIR
+    ./configure --prefix=/usr \
         --libdir=/usr/lib64/
 }
 
