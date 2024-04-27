@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+name="polkit"
+version="123"
+url="https://gitlab.freedesktop.org/polkit/polkit"
+description="Application development toolkit for controlling system-wide privileges"
+
+source="https://gitlab.freedesktop.org/polkit/polkit/-/archive/$version/polkit-$version.tar.gz"
+
+depends="duktape,expat,glib,pam,elogind"
+makedepends="gobject-introspection,gtk-doc,meson"
+
+group="sys.auth"
+
+setup(){
+cp -prfv $PACKAGEDIR/files /tmp/bps/build/
+cd $SOURCEDIR
+
+    meson setup $BUILDDIR --prefix=/usr \
+        --libdir=/usr/lib64/ \
+        -Dsession_tracking="libelogind" \
+        -Dsystemdsystemunitdir=/garbage
+}
+
+build(){
+    ninja -C $BUILDDIR $jobs
+}
+
+package(){
+    DESTDIR=$DESTDIR ninja -C $BUILDDIR install $jobs
+    rm -rf $DESTDIR/garbage
+    install -d $DESTDIR/etc/{passwd,group,sysconf,init}.d
+    install ../files/polkit.sysconf $DESTDIR/etc/sysconf.d/polkit
+    install ../files/polkit.groups $DESTDIR/etc/group.d/polkit
+    install ../files/polkit.passwd $DESTDIR/etc/passwd.d/polkit
+    install ../files/polkit.initd $DESTDIR/etc/init.d/polkit
+}
+

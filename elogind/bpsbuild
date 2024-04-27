@@ -40,11 +40,14 @@ package(){
 	cd $DESTDIR
 	mkdir -p $DESTDIR/lib64
 	ln -s lib64 lib
+	mkdir -p "$DESTDIR"/usr/lib64/pkgconfig/
     DESTDIR=$DESTDIR ninja -C $BUILDDIR install
 
     # Claim compatiblity with systemd and systemd-logind (thanks Alpine linux)
     ln -s libelogind.pc "$DESTDIR"/lib64/pkgconfig/libsystemd.pc
     ln -s libelogind.pc "$DESTDIR"/lib64/pkgconfig/libsystemd-login.pc
+
+    
     ln -s elogind "$DESTDIR"/usr/include/systemd
     # Extra compatiblity support
     ln -s libelogind.so.0 "$DESTDIR"/lib64/libsystemd.so.0
@@ -67,6 +70,8 @@ package(){
     # ld.so.conf
     mkdir -p "${DESTDIR}"/etc/ld.so.conf.d/
     echo "/lib64/elogind" > "${DESTDIR}"/etc/ld.so.conf.d/elogind.conf
+    cd "$DESTDIR"/usr/lib64/pkgconfig/
+    ln -s ../../../lib64/pkgconfig/libelogind.pc libelogind.pc
 
 }
 
