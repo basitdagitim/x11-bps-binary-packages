@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 name="libdrm"
-version="2.4.114"
+version="2.4.120"
 description="X.Org libdrm library"
 source="https://dri.freedesktop.org/libdrm/libdrm-$version.tar.xz"
 depends="libpciaccess"

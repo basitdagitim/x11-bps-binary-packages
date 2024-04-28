@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+name="librsvg"
+version="2.58.91"
+description="Scalable Vector Graphics (SVG) rendering library "
+source="https://download.gnome.org/sources/librsvg/${version%.*}/librsvg-${version}.tar.xz"
+depends="libthai,gobject-introspection,pango,cairo,fontconfig,libX11,libXext,libXrender,libxcb,gdk-pixbuf"
+builddepend="cargo"
+group="gnome.base"
+
+setup(){
+    cd $SOURCEDIR
+    meson setup $BUILDDIR \
+        --sysconfdir=/etc \
+        --prefix=/usr \
+        --libdir=/usr/lib \
+        -Dtests=false \
+        -Dtriplet=false \
+        -Dvala=enabled
+}
+build(){
+    meson compile -C $BUILDDIR
+}
+
+package(){
+    DESTDIR="$DESTDIR" meson install -C $BUILDDIR
+}
+
+Xsetup(){
+    cd $SOURCEDIR
+    autoreconf -fvi
+    ./configure --prefix=/usr \
+        --libdir=/usr/lib64/ \
+        --enable-gtk-doc \
+	    --enable-vala
+
+}
+
+Xbuild(){
+    make
+}
+
+Xpackage(){
+    make install DESTDIR="$DESTDIR" $jobs
+}
+
