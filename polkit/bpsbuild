@@ -7,7 +7,7 @@ description="Application development toolkit for controlling system-wide privile
 source="https://gitlab.freedesktop.org/polkit/polkit/-/archive/$version/polkit-$version.tar.gz"
 
 depends="duktape,expat,glib,pam,elogind"
-makedepends="gobject-introspection,gtk-doc,meson"
+builddepend="gobject-introspection,gtk-doc,meson"
 
 group="sys.auth"
 

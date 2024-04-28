@@ -5,7 +5,7 @@ url="https://github.com/rockdaboot/libpsl"
 description="C library for the Public Suffix List"
 source="https://github.com/rockdaboot/libpsl/releases/download/$version/libpsl-$version.tar.gz"
 depends="libidn2"
-makedepends="python"
+builddepend="python"
 group="net.libs"
 
 setup(){
