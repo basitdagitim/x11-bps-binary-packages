@@ -4,7 +4,9 @@ version="1.0.0"
 description="X.Org font aliases "
 source=""
 depends="xcb-proto,xorgproto,xorg-server,xinit,pixman,libtirpc,libxcvtlibpciaccess,libfontenc,freetype,xkeyboard-config,xkbcomp,libXft,libXext,libXaw,libXinerama,libICE,lilbSM,llvm, \
-mesa,libinput,tracker,libwacom,libepoxy,libgudev,libXcursor,xcb-util,icu,fribidi,libthai,gcc"
+mesa,libinput,tracker,libwacom,libepoxy,libgudev,libXcursor,xcb-util,icu,fribidi,libthai,gcc,libselinux, \
+libXdamage,libXv,libXvMC,libXi,libXss,libXtst,libcap-ng,libtiff,libsoup3, \
+libnsl,libXi,xcb-util,xcb-util-image,xcb-util-render,xcb-util-keysyms"
 group="x11"
 
 setup(){
