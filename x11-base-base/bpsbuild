@@ -3,7 +3,7 @@ name="x11-base-base"
 version="1.0.0"
 description="X.Org font aliases "
 source=""
-depends="xcb-proto,xorgproto,xorg-server,xinit,pixman,libtirpc,libxcvt,libpciaccess,libfontenc,freetype,xkeyboard-config,xkbcomp,libXft,libXext,libXaw,libXinerama,libICE,libSM,llvm,mesa,libinput,tracker,libwacom,libepoxy,libgudev,libXcursor,xcb-util,icu,fribidi,libthai,gcc,libselinux,libXdamage,libXv,libXvMC,libXi,libxss,libXtst,libcap-ng,libtiff,libsoup3,libnsl,libXi,xcb-util,xcb-util-image,xcb-util-renderutil,xcb-util-keysyms,xcb-util-wm,json-glib,libnghttp2,libpsl,sqlite,libsepol,flex,libtool,libidn2,libunistring,libpng,harfbuzz,xterm,fontconfig,mtdev,libffi,wayland,libglvnd"
+depends="xcb-proto,xorgproto,xorg-server,xinit,pixman,libtirpc,libxcvt,libpciaccess,libfontenc,freetype,xkeyboard-config,xkbcomp,libXft,libXext,libXaw,libXinerama,libICE,libSM,llvm,mesa,libinput,tracker,libwacom,libepoxy,libgudev,libXcursor,xcb-util,icu,fribidi,libthai,gcc,libselinux,libXdamage,libXv,libXvMC,libXi,libxss,libXtst,libcap-ng,libtiff,libsoup3,libnsl,libXi,xcb-util,xcb-util-image,xcb-util-renderutil,xcb-util-keysyms,xcb-util-wm,json-glib,libnghttp2,libpsl,sqlite,libsepol,flex,libtool,libidn2,libunistring,libpng,harfbuzz,xterm,fontconfig,mtdev,libffi,wayland,libglvnd,libevdev"
 group="x11"
 
 setup(){
