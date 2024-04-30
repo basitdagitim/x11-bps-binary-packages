@@ -12,9 +12,13 @@ setup(){
 	cd $SOURCEDIR
     meson setup $BUILDDIR --prefix=/usr \
         --libdir=/usr/lib64/ \
-        -Ddocs=disabled \
-        -Dgobject=enabled \
-        -Dfreetype=enabled
+        -Dglib=enabled \
+		-Dgobject=enabled \
+		-Dicu=enabled \
+		-Dfreetype=enabled \
+		-Dtests=disabled \
+		-Dcairo=enabled \
+		-Ddocs=enabled
 }
 
 build(){

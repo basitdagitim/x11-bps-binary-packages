@@ -12,19 +12,24 @@ setup(){
 	cp ${dizin}/${paket}/gdk-pixbuf.sysconf /tmp/bps/build/gdk-pixbuf.sysconf
     meson setup $BUILDDIR --prefix=/usr \
         --libdir=/usr/lib64/ \
+        -Db_lto=true \
+        -D builtin_loaders=all \
         -Dman=false \
         -D installed_tests=false \
         -D tiff=enabled \
+        -D introspection=enabled \
         -D tests=false
 
 }
 
 build(){
-    ninja -C $BUILDDIR
+	meson compile -C $BUILDDIR
+    #ninja -C $BUILDDIR
 }
 
 package(){
-    DESTDIR=$DESTDIR ninja -C $BUILDDIR install
+	DESTDIR="$DESTDIR" meson install -C $BUILDDIR
+    #DESTDIR=$DESTDIR ninja -C $BUILDDIR install
     mkdir -p ${DESTDIR}/etc/sysconf.d/
     install ../gdk-pixbuf.sysconf ${DESTDIR}/etc/sysconf.d/gdk-pixbuf
 }
