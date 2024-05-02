@@ -9,7 +9,7 @@ group="x11.libs"
 
 setup(){
 	cd $SOURCEDIR
-	cp ${dizin}/${paket}/gdk-pixbuf.sysconf /tmp/bps/build/gdk-pixbuf.sysconf
+	#cp ${dizin}/${paket}/gdk-pixbuf.sysconf /tmp/bps/build/gdk-pixbuf.sysconf
     meson setup $BUILDDIR --prefix=/usr \
         --libdir=/usr/lib64/ \
         -Db_lto=true \
@@ -31,6 +31,6 @@ package(){
 	DESTDIR="$DESTDIR" meson install -C $BUILDDIR
     #DESTDIR=$DESTDIR ninja -C $BUILDDIR install
     mkdir -p ${DESTDIR}/etc/sysconf.d/
-    install ../gdk-pixbuf.sysconf ${DESTDIR}/etc/sysconf.d/gdk-pixbuf
+   #install ../gdk-pixbuf.sysconf ${DESTDIR}/etc/sysconf.d/gdk-pixbuf
 }
 
