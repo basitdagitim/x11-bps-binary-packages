@@ -6,13 +6,8 @@ url="https://github.com/p11-glue/p11-kit"
 description="Library for loading and sharing PKCS#11 modules"
 
 source="https://github.com/p11-glue/p11-kit/releases/download/${version}/p11-kit-${version}.tar.xz"
-depends="libtasn1,elfutils"
-
-
+depends="libtasn1,elfutils,libffi"
 group="app.crypt"
-uses=(libffi lto)
-libffi_depends=(libffi)
-
 
 setup(){
 cd $SOURCEDIR
