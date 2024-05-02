@@ -45,9 +45,6 @@ build(){
 package(){
     make install DESTDIR=$DESTDIR
     mkdir -p "$DESTDIR"/etc/{passwd,group,sysconf,init,conf}.d "$DESTDIR"/etc/X11/xinit/xinitrc.d/
-   # echo "messagebus:x:109:" > "$DESTDIR"/etc/group.d/dbus
-    #echo "messagebus:x:103:109::/nonexistent:/usr/sbin/nologin" > "$DESTDIR"/etc/passwd.d/dbus
-    install ../files/dbus.sysconf "$DESTDIR"/etc/sysconf.d/dbus
     install ../files/dbus.initd "$DESTDIR"/etc/init.d/dbus
     install ../files/dbus.confd "$DESTDIR"/etc/conf.d/dbus
     install ../files/dbus.xinit "$DESTDIR"/etc/X11/xinit/xinitrc.d/30-dbus-launch.sh

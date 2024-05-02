@@ -9,7 +9,7 @@ group="media.libs"
 
 setup(){
 cd $SOURCEDIR
-cp -prfv $PACKAGEDIR/fontconfig.sysconf  ${SOURCEDIR}/
+
     meson setup $BUILDDIR --prefix=/usr \
         --libdir=/usr/lib64/
 }
@@ -27,7 +27,6 @@ package(){
             ln -s ../../../usr/share/fontconfig/conf.avail/$link ${DESTDIR}/etc/fonts/conf.d/$link
         fi
     done
-    mkdir -p ${DESTDIR}/etc/sysconf.d/
-    install fontconfig.sysconf ${DESTDIR}/etc/sysconf.d/fontconfig
+
 }
 
