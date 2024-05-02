@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+name="cairomm"
+version="1.14.4"
+url="https://www.cairographics.org/cairomm/"
+description="C++ bindings for Cairo"
+source="https://www.cairographics.org/releases/cairomm-${version}.tar.xz"
+depends="libsigc++2,libsigc++"
+group="dev.cpp"
+
+setup () {
+
+cd $SOURCEDIR
+    meson setup $BUILDDIR --prefix=/usr \
+		--libdir=/usr/lib64/
+}
+
+build () {
+    ninja -C $BUILDDIR $jobs
+}
+
+package () {
+    DESTDIR=${DESTDIR} ninja -C $BUILDDIR install $jobs
+}
+

@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+name="gtkmm3"
+version="3.24.7"
+url="https://www.gtkmm.org/"
+description="C++ bindings for GTK+ 3"
+
+source="https://download.gnome.org/sources/gtkmm/${version%.*}/gtkmm-${version}.tar.xz"
+depends="atkmm,cairomm,glibmm,pangomm"
+builddepend="mm-common"
+
+group="dev.cpp"
+
+setup () {
+cd $SOURCEDIR
+    meson setup $BUILDDIR --prefix=/usr \
+		--libdir=/usr/lib64/
+}
+
+build () {
+    ninja -C $BUILDDIR $jobs
+}
+
+package () {
+    DESTDIR=${DESTDIR} ninja -C $BUILDDIR install $jobs
+}
+

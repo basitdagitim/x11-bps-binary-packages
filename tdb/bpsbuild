@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+name="tdb"
+version="1.4.8"
+url="https://tdb.samba.org/"
+description="Simple database API"
+
+source="https://www.samba.org/ftp/tdb/tdb-$version.tar.gz"
+depends=""
+setup(){
+	cd $SOURCEDIR
+  ./configure --prefix=/usr \
+      --libdir=/usr/lib64/
+
+}
+
+build(){
+    make -j`nproc`
+}
+
+package(){
+    make install DESTDIR=$DESTDIR -j`nproc`
+}
+

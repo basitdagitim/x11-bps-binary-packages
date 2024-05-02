@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+name="libvorbis"
+version="1.3.7"
+url="https://www.xiph.org/vorbis/"
+description="Reference implementation of the Ogg Vorbis audio format"
+source="https://downloads.xiph.org/releases/vorbis/libvorbis-${version}.tar.xz"
+depends="libogg"
+group="media.libs"	
+
+setup(){
+
+cd $SOURCEDIR
+    ./configure --prefix=/usr \
+        --libdir=/usr/lib64/ \
+        --enable-shared
+}
+
+build(){
+    make $jobs
+}
+
+package(){
+    make install DESTDIR=$DESTDIR $jobs
+}
+

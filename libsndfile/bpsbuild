@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+name="libsndfile"
+version="1.2.0"
+url="https://libsndfile.github.io/libsndfile/"
+description="C library for reading and writing files containing sampled sound"
+source="https://github.com/libsndfile/libsndfile/archive/refs/tags/$version.tar.gz"
+depends="opus,mpg123,lame,flac,libvorbis"
+
+setup(){
+cd $SOURCEDIR
+  cmake -DCMAKE_INSTALL_PREFIX=/usr \
+        -DCMAKE_BUILD_TYPE=None \
+        -DBUILD_SHARED_LIBS=ON \
+        -DENABLE_EXTERNAL_LIBS=ON \
+        -DENABLE_MPEG=ON \
+        -Wno-dev \
+        -B build \
+        -S .
+ 
+}
+
+build(){
+   make VERBOSE=1 -C build
+}
+
+package(){
+   DESTDIR=$DESTDIR make install -C build
+}
+
