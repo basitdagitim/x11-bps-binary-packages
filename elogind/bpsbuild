@@ -46,7 +46,7 @@ package(){
     # Claim compatiblity with systemd and systemd-logind (thanks Alpine linux)
     ln -s libelogind.pc "$DESTDIR"/lib64/pkgconfig/libsystemd.pc
     ln -s libelogind.pc "$DESTDIR"/lib64/pkgconfig/libsystemd-login.pc
-    ln -s libelogind.pc "$DESTDIR"/usr/lib64/pkgconfig/libelogind.pc
+
     
     ln -s elogind "$DESTDIR"/usr/include/systemd
     # Extra compatiblity support
@@ -70,6 +70,9 @@ package(){
     # ld.so.conf
     mkdir -p "${DESTDIR}"/etc/ld.so.conf.d/
     echo "/lib64/elogind" > "${DESTDIR}"/etc/ld.so.conf.d/elogind.conf
+    
+   cd "$DESTDIR"/usr/lib64/pkgconfig/
+   ln -s ../../../lib64/pkgconfig/libelogind.pc libelogind.pc
 
 }
 

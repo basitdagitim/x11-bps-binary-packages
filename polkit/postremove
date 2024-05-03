@@ -1,0 +1,3 @@
+sed -i "/polkitd/d" /etc/group
+sed -i "/polkitd/d" /etc/passwd
+

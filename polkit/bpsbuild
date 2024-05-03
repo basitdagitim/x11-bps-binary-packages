@@ -28,10 +28,8 @@ build(){
 package(){
     DESTDIR=$DESTDIR ninja -C $BUILDDIR install $jobs
     rm -rf $DESTDIR/garbage
-    install -d $DESTDIR/etc/{passwd,group,sysconf,init}.d
-    install ../files/polkit.sysconf $DESTDIR/etc/sysconf.d/polkit
-    install ../files/polkit.groups $DESTDIR/etc/group.d/polkit
-    install ../files/polkit.passwd $DESTDIR/etc/passwd.d/polkit
+    install -d $DESTDIR/etc/init.d
+
     install ../files/polkit.initd $DESTDIR/etc/init.d/polkit
 }
 

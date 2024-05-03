@@ -1,7 +1,3 @@
-sed -i "/messagebus/d" /etc/group
-sed -i "/messagebus/d" /etc/passwd
-echo "messagebus:x:109:" >> /etc/group
-echo "messagebus:x:103:109::/nonexistent:/usr/sbin/nologin" >> /etc/passwd
 
 if [ ! -f /etc/machine-id ] ; then
     dbus-uuidgen --ensure=/etc/machine-id
@@ -11,4 +7,5 @@ if busybox ls /bin/su -la | grep "^...s" >/dev/null ; then
 fi
 dbus-send --system --type=method_call --dest=org.freedesktop.DBus / \
 	org.freedesktop.DBUS.ReloadConfig >/dev/null 2>&1 || :
-	
+
+
