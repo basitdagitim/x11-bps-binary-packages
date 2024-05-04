@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+name="pipewire-media-session"
+version="0.4.2"
+url="https://gitlab.freedesktop.org/pipewire/media-session"
+description="session manager for PipeWire"
+source="https://gitlab.freedesktop.org/pipewire/media-session/-/archive/$version/media-session-$version.tar.gz"
+depends="pipewire,alsa-lib"
+group=(media.video)
+
+setup(){
+cd $SOURCEDIR
+    meson setup $BUILDDIR --prefix=/usr \
+    --libdir=/usr/lib64
+}
+build(){
+   ninja -C $BUILDDIR
+}
+
+package(){
+   DESTDIR=$DESTDIR ninja -C $BUILDDIR install
+}

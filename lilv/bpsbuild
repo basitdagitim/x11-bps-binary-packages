@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+name="lilv"
+version="0.24.20"
+url="https://drobilla.net/software/lilv.html"
+description="Library to make the use of LV2 plugins as simple as possible for applications"
+
+source="https://github.com/lv2/lilv/archive/refs/tags/v$version.tar.gz"
+depends="lv2,serd,sord,sratom"
+
+group="media.libs"
+
+setup(){
+cd $SOURCEDIR
+    meson setup $BUILDDIR --prefix=/usr \
+        --libdir=/usr/lib64/
+}
+
+build(){
+   ninja -C $BUILDDIR
+}
+
+package(){
+   DESTDIR=$DESTDIR ninja -C $BUILDDIR install
+}
