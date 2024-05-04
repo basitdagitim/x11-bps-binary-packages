@@ -3,21 +3,10 @@ name="dbus"
 version="1.15.2"
 description="A message bus system, a simple way for applications to talk to each other"
 source="https://dbus.freedesktop.org/releases/dbus/dbus-$version.tar.xz"
-depends="audit,expat,libcap-ng,elogind,libX11"
+depends="audit,expat,libcap-ng,elogind,libX11,libunwind"
 group="sys.apps"
 
-setup55(){
-	mkdir -p /tmp/bps/build/files
-	cp ${dizin}/${paket}/files/* /tmp/bps/build/files/
-	cd $SOURCEDIR
-	./configure --prefix=/usr \
-        --libdir=/usr/lib64/ \
-        --localstatedir=/var \
-        --sysconfdir=/etc \
-        --disable-xml-docs \
-        --with-system-pid-file=/run/dbus/dbus.pid \
-        --with-x
-}
+
 setup()
 {
 		mkdir -p /tmp/bps/build/files
@@ -36,7 +25,7 @@ setup()
             --with-systemduserunitdir=no         \
             --with-systemdsystemunitdir=no       \
             --with-system-socket=/run/dbus/system_bus_socket
-            }
+}
 
 build(){
     make

@@ -1,2 +1,5 @@
 echo ""
-
+rc-update del dbus
+rc-service dbus stop
+sed -i "/messagebus/d" /etc/group
+sed -i "/messagebus/d" /etc/passwd
