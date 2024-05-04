@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 name="gtk3"
-version="3.24.38"
+version="3.24.41"
 description="Gimp Toolkit"
 source="https://gitlab.gnome.org/GNOME/gtk/-/archive/${version}/gtk-${version}.tar.gz"
 depends="cairo,libXi,libXext,libXfixes,libXcursor,libXdamage,librsvg,at-spi2-core,shared-mime-info,gdk-pixbuf,libxkbcommon,libepoxy,colord,libcloudproviders,dconf,cantarell-fonts,libpng,libXcomposite,libXinerama,glib,libXrandr,pango,wayland"
@@ -9,14 +9,17 @@ group="gui.libs"
 
 
 setup(){
+CFLAGS="$CFLAGS -O2" \
+CXXFLAGS="$CXXFLAGS -O2" \
+
 XDG_DATA_DIRS=/usr/share/ 
-	cp -prvf $PACKAGEDIR/files/ /tmp/bps/build/
+
 	cd $SOURCEDIR
 	
 	meson setup $BUILDDIR --prefix=/usr \
 		--libdir=/usr/lib64/ \
 		--buildtype=release \
-		-Dwin32_backend=false \
+		-Dinstalled_tests=false \
 		-Dman=false \
 		-Dtests=false \
 		-Dcloudproviders=true \
@@ -36,23 +39,11 @@ package(){
     DESTDIR=$DESTDIR ninja -C $BUILDDIR install
 
     #DESTDIR="$DESTDIR" meson install -C build
-    mkdir -p ${DESTDIR}/etc/sysconf.d
+    #mkdir -p ${DESTDIR}/etc/sysconf.d
     mkdir -p ${DESTDIR}/etc/profile.d
     echo "export GTK_OVERLAY_SCROLLING=0" > ${DESTDIR}/etc/profile.d/gtk3.sh
     echo "export GDK_CORE_DEVICE_EVENTS=1" >> ${DESTDIR}/etc/profile.d/gtk3.sh
-    install ../files/gtk3.sysconf ${DESTDIR}/etc/sysconf.d/gtk3
+
 }
 
-ddd(){
-meson setup build --prefix=/usr \
-		--libdir=/usr/lib64/ \
-		-Dman=false \
-		-Dinstalled_tests=false \
-		-Dtests=false \
-		-Dcloudproviders=true \
-		-Dbroadway_backend=true \
-		-Dcolord=yes \
-		-Dintrospection=true \
-		-Dtracker3=true 
-}
 
