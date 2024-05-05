@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-name="pavucontro"
+name="pavucontrol"
 version="5.0"
 url="https://freedesktop.org/software/pulseaudio/pavucontrol/"
 description="Pulseaudio Volume Control, GTK based mixer for Pulseaudio"

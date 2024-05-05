@@ -1,0 +1,2 @@
+chmod -R 755 /usr/share/mime
+update-mime-database /usr/share/mime/

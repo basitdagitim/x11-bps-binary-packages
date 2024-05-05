@@ -8,8 +8,7 @@ group="x11.misc"
 
 
 setup(){
-	mkdir -p /tmp/bps/build/files
-	cp ${dizin}/${paket}/files/* /tmp/bps/build/files/
+	
 	cd $SOURCEDIR
     meson setup $BUILDDIR --prefix=/usr \
         --libdir=/usr/lib64/
@@ -21,7 +20,5 @@ build(){
 
 package(){
     DESTDIR=$DESTDIR ninja -C $BUILDDIR install
-    mkdir -p ${DESTDIR}/etc/sysconf.d/
-    install ../files/shared-mime-info.sysconf ${DESTDIR}/etc/sysconf.d/shared-mime-info
 }
 
