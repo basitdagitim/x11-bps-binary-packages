@@ -4,6 +4,7 @@ version="3.24.41"
 description="Gimp Toolkit"
 source="https://gitlab.gnome.org/GNOME/gtk/-/archive/${version}/gtk-${version}.tar.gz"
 depends="cairo,libXi,libXext,libXfixes,libXcursor,libXdamage,librsvg,at-spi2-core,shared-mime-info,gdk-pixbuf,libxkbcommon,libepoxy,colord,libcloudproviders,dconf,cantarell-fonts,libpng,libXcomposite,libXinerama,glib,libXrandr,pango,wayland"
+builddepend="sassc,libsass"
 group="gui.libs"
 
 
