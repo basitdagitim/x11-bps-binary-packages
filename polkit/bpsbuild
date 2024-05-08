@@ -31,6 +31,7 @@ package(){
     install -d $DESTDIR/etc/init.d
 
     install ../files/polkit.initd $DESTDIR/etc/init.d/polkit
-    mkdir -p $DESTDIR/empty
+    mkdir -p $DESTDIR/var
+    mkdir -p $DESTDIR/var/empty
 }
 
