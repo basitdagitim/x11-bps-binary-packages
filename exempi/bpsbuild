@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+name="exempi"
+version="2.6.5"
+description="Library to parse XMP metadata"
+source="https://libopenraw.freedesktop.org/download/exempi-$version.tar.xz"
+depends="expat,zlib"
+builddepend="boost"
+group="media.libs"
+
+
+setup(){
+	cd $SOURCEDIR
+    ./configure --prefix=/usr \
+        --libdir=/usr/lib64/
+}
+
+build(){
+    make
+}
+
+package(){
+    make install DESTDIR=$DESTDIR
+}
+

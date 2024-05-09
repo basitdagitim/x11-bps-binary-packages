@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+name="libksba"
+version="1.6.3"
+description="Library for working with X.509 certificates, CMS data and related objects"
+source="https://www.gnupg.org/ftp/gcrypt/${name}/${name}-${version}.tar.bz2"
+depends="libgpg-error"
+builddepend=""
+group="dev.libs"
+
+
+setup(){
+	cd $SOURCEDIR
+    ./configure --prefix=/usr \
+        --libdir=/usr/lib64/
+}
+
+build(){
+    make
+}
+
+package(){
+    make DESTDIR=${DESTDIR} install
+}
+

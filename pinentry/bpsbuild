@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+name="pinentry"
+version="1.2.1"
+description="Collection of simple PIN or passphrase entry dialogs which utilize the Assuan protocol"
+source="https://www.gnupg.org/ftp/gcrypt/pinentry/pinentry-${version}.tar.bz2"
+depends="libassuan,libgpg-error"
+group="app.crypt"
+
+
+setup(){
+	cd $SOURCEDIR
+    ./configure --prefix=/usr \
+        --libdir=/usr/lib64/ \
+        --enable-pinentry-tty \
+        --enable-pinentry-curses \
+        --enable-fallback-curses \
+        --enable-pinentry-emacs \
+        --enable-pinentry-gtk3 \
+        --enable-pinentry-gnome3 \
+        --enable-libsecret 
+}
+
+build(){
+    make
+}
+
+package(){
+    make DESTDIR="${DESTDIR}" install
+}
+

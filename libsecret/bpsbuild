@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+name="libsecret"
+version="0.21.0"
+description="GObject library for accessing the freedesktop.org Secret Service API"
+source="https://gitlab.gnome.org/GNOME/libsecret/-/archive/$version/libsecret-$version.tar.gz"
+depends="libgcrypt"
+builddepend=""
+group="app.crypt"
+
+
+setup(){
+	cd $SOURCEDIR
+	sed -i '/test-secmem/d' egg/meson.build
+    meson setup $BUILDDIR --prefix=/usr \
+        --libdir=/usr/lib64/ \
+        -Dgtk_doc=false \
+        -Dmanpage=false
+}
+
+build(){
+    ninja -C $BUILDDIR
+}
+
+package(){
+    DESTDIR=$DESTDIR ninja -C $BUILDDIR install
+}
+

@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+name="libmnl"
+version="1.0.5"
+description="Library for minimalistic netlin"
+source="https://www.netfilter.org/projects/libmnl/files/libmnl-${version}.tar.bz2"
+depends=""
+builddepend=""
+group="net.libs"
+
+
+setup () {
+	cd $SOURCEDIR
+    ./configure --prefix=/usr \
+		--libdir=/usr/lib64/
+}
+
+build () {
+    make
+}
+
+package () {
+    make DESTDIR="$DESTDIR" install
+}
+

@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+name="libgsf"
+version="1.14.50"
+_vrs="1_14_50"
+description="Utility library for reading and writing structured file formats"
+source="https://gitlab.gnome.org/GNOME/libgsf/-/archive/LIBGSF_${_vrs}/libgsf-LIBGSF_${_vrs}.tar.gz"
+depends="libxml2,gdk-pixbuf,bzip2"
+builddepend="gobject-introspection,git,gtk-doc,autoconf"
+group="gnome.extra"
+
+
+setup () {
+	cd $SOURCEDIR
+	autoreconf -fvi
+    ./configure --prefix=/usr \
+		--libdir=/usr/lib64/ \
+		--sysconfdir=/etc \
+		--localstatedir=/var \
+		--mandir=/usr/share/man \
+		--disable-static \
+		--without-gnome-vfs \
+		--without-bonobo \
+		--enable-introspection
+}
+
+build () {
+    make
+}
+
+package () {
+    make DESTDIR="$DESTDIR" install
+}
+

@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+name="libnma"
+version="1.10.6"
+description="Network Manager gtk client library"
+source="https://gitlab.gnome.org/GNOME/libnma/-/archive/$version/libnma-$version.tar.gz"
+depends="gtk3,networkmanager,iso-codes"
+builddepend=""
+group="net.libs"
+
+
+setup(){
+	cd $SOURCEDIR
+    meson setup $BUILDDIR  --prefix=/usr \
+        --libdir=/usr/lib64/ \
+        -Dlibnma_gtk4=false \
+        -Dgcr=false \
+        -Dgtk_doc=false \
+        -Dmobile_broadband_provider_info=false
+}
+
+build(){
+    ninja -C $BUILDDIR
+}
+
+package(){
+    DESTDIR=$DESTDIR ninja -C $BUILDDIR install
+    # in nm-applet
+    rm -f $DESTDIR/usr/share/glib-2.0/schemas/org.gnome.nm-applet.gschema.xml
+}
+

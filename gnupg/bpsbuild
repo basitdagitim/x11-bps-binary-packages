@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+name="gnupg"
+version="2.4.1"
+description="Complete and free implementation of the OpenPGP standard"
+source="https://www.gnupg.org/ftp/gcrypt/gnupg/gnupg-$version.tar.bz2"
+depends="libassuan,libgcrypt,libksba,npth,gnutls,pinentry,sqlite"
+builddepend=""
+group="app.crypt"
+
+
+setup(){
+	cd $SOURCEDIR
+    autoreconf -fvi
+    ./configure --prefix=/usr \
+        --libdir=/usr/lib64/
+}
+
+build(){
+    make
+}
+
+package(){
+    make install DESTDIR=$DESTDIR
+}
+

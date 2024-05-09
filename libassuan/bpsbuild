@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+name="libassuan"
+version="2.5.5"
+description="IPC library used by some GnuPG related software"
+source="https://gnupg.org/ftp/gcrypt/${name}/${name}-${version}.tar.bz2"
+depends="libgpg-error"
+builddepend=""
+group="dev.libs"
+
+
+setup(){
+	cd $SOURCEDIR
+    ./configure --prefix=/usr \
+        --libdir=/usr/lib64/
+}
+
+build(){
+    make
+}
+
+package(){
+    make DESTDIR="$DESTDIR" install -C ../$name-$version $jobs
+    install -vDm 644 ./AUTHORS -t "$DESTDIR/usr/share/doc/$name/" 
+    install -vDm 644 ./NEWS -t "$DESTDIR/usr/share/doc/$name/" 
+    install -vDm 644 ./README -t "$DESTDIR/usr/share/doc/$name/" 
+    install -vDm 644 ./ChangeLog -t "$DESTDIR/usr/share/doc/$name/" 
+}
+

@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+name="npth"
+version="1.6"
+description="The new GNU portable threads library"
+source="https://www.gnupg.org/ftp/gcrypt/$name/$name-$version.tar.bz2"
+depends=""
+builddepend=""
+group="dev.libs"
+
+
+setup(){
+	cd $SOURCEDIR
+    autoreconf -fvi
+    ./configure --prefix=/usr \
+        --libdir=/usr/lib64/
+}
+
+build(){
+    make
+}
+
+package(){
+    make DESTDIR="${DESTDIR}" install
+    install -vDm 644 ./{README,NEWS,ChangeLog} -t "$DESTDIR/usr/share/doc/$name/"
+}
+

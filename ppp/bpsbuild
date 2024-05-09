@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+name="ppp"
+version="2.5.0"
+description="A daemon which implements the Point-to-Point Protocol for dial-up networking"
+source="https://download.samba.org/pub/ppp/ppp-$version.tar.gz"
+depends="libpcap,openssl,dbus,libxcrypt"
+builddepend=""
+group="net.dialup"
+
+
+setup(){
+	cp -prvf $PACKAGEDIR/pppd.initd /tmp/bps/build/
+	cd $SOURCEDIR
+    ./configure --prefix=/usr \
+        --sysconfdir=/etc \
+        --libdir=/usr/lib64 \
+		--disable-systemd
+}
+
+build(){
+    make
+}
+
+package(){
+	mkdir -p $DESTDIR/etc/init.d/
+    make DESTDIR="$DESTDIR" install $jobs
+	install -D -m755 "../pppd.initd" $DESTDIR"/etc/init.d/pppd"
+}
