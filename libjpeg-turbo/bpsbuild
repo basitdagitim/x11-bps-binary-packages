@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 name="libjpeg-turbo"
-version="3.0.0"
+version="3.0.3"
 description="MMX, SSE, and SSE2 SIMD accelerated JPEG library"
 source="https://github.com/libjpeg-turbo/libjpeg-turbo/archive/refs/tags/$version.tar.gz"
 depends=""
