@@ -9,7 +9,7 @@ echo "polkitd:x:102:102:User for polkitd:/var/empty:/sbin/nologin" >> /etc/passw
 
     install -d /usr/share/polkit-1/rules.d
     install -d /etc/polkit-1/rules.d
-    #chown -R polkitd:polkitd /{etc,usr/share}/polkit-1/rules.d
+    chown -R polkitd:polkitd /etc/polkit-1/rules.d /usr/share/polkit-1/rules.d
     chmod -R 700 /etc/polkit-1/rules.d
     chmod -R 700 /usr/share/polkit-1/rules.d
   
