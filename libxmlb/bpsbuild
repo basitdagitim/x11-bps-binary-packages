@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+name="libxmlb"
+version="0.3.19"
+description="Library to help create and query binary XML blobs"
+source="https://github.com/hughsie/libxmlb/archive/refs/tags/$version.tar.gz"
+depends="glib2,libstemmer,xz-utils,zstd"
+builddepend="meson,gobject-introspection,gtk-doc"
+group="dev.libs"
+
+
+setup(){
+	cd $SOURCEDIR
+    meson setup $BUILDDIR --prefix=/usr \
+        --libdir=/usr/lib64/ \
+	    -Dgtkdoc=false \
+	    -Dtests=true \
+	    -Dstemmer=false \
+	    -Dintrospection=true 
+}
+
+build(){
+    meson compile -C $BUILDDIR
+}
+
+package(){
+    DESTDIR="$DESTDIR" meson install -C $BUILDDIR
+}

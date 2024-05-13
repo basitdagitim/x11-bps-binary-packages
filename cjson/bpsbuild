@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+name="cjson"
+version="1.7.15"
+description="Ultralightweight JSON parser in ANSI C"
+source="https://github.com/DaveGamble/cJSON/archive/v$version.tar.gz"
+depends=""
+builddepend=""
+group="dev.libs"
+
+setup(){
+	cd $SOURCEDIR
+    cmake -B $BUILDDIR -G Ninja \
+        -DENABLE_CJSON_UTILS=On \
+        -DCMAKE_INSTALL_PREFIX=/usr \
+        -DCMAKE_INSTALL_LIBDIR=/usr/lib64/ \
+        -DBUILD_SHARED_AND_STATIC_LIBS=True 
+}
+
+build(){
+    cmake --build $BUILDDIR
+}
+
+package(){
+   DESTDIR=$DESTDIR cmake --install $BUILDDIR
+}
+

@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+name="nasm"
+version="2.16.01"
+description="80x86 assembler designed for portability and modularity"
+source="https://github.com/netwide-assembler/nasm/archive/refs/tags/nasm-$version.tar.gz"
+depends="asciidoc,xmlto"
+builddepend=""
+group="dev.lang"
+
+
+setup(){
+	cd $SOURCEDIR
+    ./autogen.sh
+    ./configure --prefix=/usr \
+        --libdir=/usr/lib64/
+}
+
+build(){
+    make
+    # do not build doc
+    touch nasm.1
+    touch ndisasm.1
+}
+
+package(){
+    make install DESTDIR=$DESTDIR
+    rm -rf $DESTDIR/usr/share/man
+}
+

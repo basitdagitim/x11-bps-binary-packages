@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+name="lmdb"
+version="0.9.30"
+description="Symas Lightning Memory-Mapped Database"
+source="https://git.openldap.org/openldap/openldap/-/archive/LMDB_${version}/openldap-LMDB_${version}.tar.gz"
+depends=""
+builddepend=""
+group="dev.db"
+
+setup (){
+	echo ""
+}
+
+build () {
+	cp -prvf $PACKAGEDIR/lmdb.pc /tmp/bps/build/
+	cd $SOURCEDIR/libraries/liblmdb/
+	sed -e "s|@VERSION@|${version}|" -i ../../../lmdb.pc
+	mv ./Makefile ./makefile
+	make CFLAGS="$CFLAGS" CPPFLAGS="$CPPFLAGS" LDFLAGS="$LDFLAGS" prefix=/usr
+}
+
+package () {
+    make DESTDIR="$DESTDIR" prefix=/usr install
+    install -Dm644 ../../../lmdb.pc -t "$DESTDIR"/usr/lib64/pkgconfig/
+    
+    mkdir -p $DESTDIR/usr/lib64/
+    mv $DESTDIR/usr/lib/* $DESTDIR/usr/lib64/
+	rm -rf $DESTDIR/usr/lib
+}
+

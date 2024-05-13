@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+name="mm-common"
+version="1.0.5"
+description="Common build files of the C++ bindings"
+source="https://download.gnome.org/sources/mm-common/${version%.*}/mm-common-${version}.tar.xz"
+depends="gtkmm3,glibmm"
+builddepend="meson"
+group="dev.cpp"
+
+
+setup () {
+	cd $SOURCEDIR
+    meson setup $BUILDDIR --prefix=/usr \
+		--libdir=/usr/lib64/
+}
+
+build(){
+    meson compile -C $BUILDDIR
+}
+
+package(){
+    DESTDIR="$DESTDIR" meson install -C $BUILDDIR
+}

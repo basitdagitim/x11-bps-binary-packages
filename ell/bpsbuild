@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+name="ell"
+version="0.65"
+description="Embedded Linux library"
+source="https://mirrors.edge.kernel.org/pub/linux/libs/$name/$name-$version.tar.xz"
+depends=""
+builddepend=""
+group="dev.libs"
+
+
+setup(){
+	cd $SOURCEDIR
+    ./configure --prefix=/usr \
+        --libdir=/usr/lib64/
+}
+
+build(){
+    make
+}
+
+package(){
+    make install DESTDIR="$DESTDIR"
+}
+

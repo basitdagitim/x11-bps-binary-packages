@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+name="double-conversion"
+version="3.3.0"
+description="Binary-decimal and decimal-binary routines for IEEE doubles"
+source="https://github.com/google/double-conversion/archive/refs/tags/v${version}.tar.gz"
+depends=""
+builddepend="cmake"
+group=(dev.libs)
+
+
+setup () {
+	cd $SOURCEDIR
+	cmake -B $BUILDDIR -G Ninja \
+		-DCMAKE_INSTALL_PREFIX=/usr \
+		-DCMAKE_INSTALL_LIBDIR=/usr/lib64  \
+    	-DBUILD_SHARED_LIBS=ON
+}
+
+build(){
+    cmake --build $BUILDDIR
+}
+
+package(){
+   DESTDIR=$DESTDIR cmake --install $BUILDDIR
+}

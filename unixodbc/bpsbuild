@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+name="unixodbc"
+version="2.3.12"
+description="ODBC is an open specification to access Data Sources"
+source="https://www.unixodbc.org/unixODBC-${version}.tar.gz"
+depends="readline,libtool"
+builddepend=""
+group="dev.db"
+
+cd "unixODBC"-$version
+
+setup () {
+	cd $SOURCEDIR
+    ./configure --prefix=/usr \
+		--libdir=/usr/lib64/ \
+		--sysconfdir=/etc \
+		--disable-nls \
+		--enable-static
+}
+
+build () {
+    make
+}
+
+package () {
+    make DESTDIR="$DESTDIR" install
+    touch "$DESTDIR"/etc/{odbc,odbcinst}.ini
+}
+

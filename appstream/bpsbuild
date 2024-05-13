@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+name="appstream"
+version="1.0.3"
+description="Provides a standard for creating app stores across distributions"
+source="https://www.freedesktop.org/software/appstream/releases/AppStream-$version.tar.xz"
+depends="glib,libxml2,libyaml,curl,libxmlb,gperf,gdk-pixbuf"
+builddepend="meson,gobject-introspection"
+group="dev.libs"
+
+setup(){
+	cd $SOURCEDIR
+    meson setup $BUILDDIR --prefix=/usr \
+        --libdir=/usr/lib64/ \
+        -Db_lto=true \
+        -Dgir=true \
+        -Dqt=false \
+        -Dvapi=true \
+        -Dapt-support=false \
+        -Dstemming=false \
+        -Ddocs=false \
+        -Dapidocs=false \
+        -Dinstall-docs=false \
+        -Dcompose=true \
+        -Dsystemd=false
+}
+
+build(){
+    meson compile -C $BUILDDIR
+}
+
+package(){
+    DESTDIR="$DESTDIR" meson install -C $BUILDDIR
+}

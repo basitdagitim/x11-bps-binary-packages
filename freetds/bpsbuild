@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+name="freetds"
+version="1.4.2"
+description="Tabular Datastream Library"
+source="https://www.freetds.org/files/stable/freetds-${version}.tar.bz2"
+depends="openssl,linux-headers,readline,unixodbc"
+builddepend=""
+group="dev.db"
+
+
+setup () {
+	cd $SOURCEDIR
+    ./configure --prefix=/usr \
+		--libdir=/usr/lib64/ \
+		--sysconfdir=/etc \
+		--infodir=/usr/share/info \
+		--enable-msdblib \
+		--with-openssl=/usr \
+		--enable-odbc \
+		--with-unixodbc=/usr
+}
+
+build () {
+    make
+}
+
+package () {
+    make DESTDIR="$DESTDIR" install 
+}
+

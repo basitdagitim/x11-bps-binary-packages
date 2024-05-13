@@ -1,0 +1,56 @@
+#!/usr/bin/env bash
+name="cyrus-sasl"
+version="2.1.28"
+description="Cyrus Simple Authentication Service Layer (SASL)"
+source="https://github.com/cyrusimap/cyrus-sasl/releases/download/cyrus-sasl-${version}/cyrus-sasl-${version}.tar.gz"
+depends=""
+builddepend="gdbm,openssl,py3-sphinx,sqlite,libtool"
+group="dev.libs"	
+
+
+setup () {
+	cp -prvf $PACKAGEDIR/saslauthd.initd /tmp/bps/build/
+	cd $SOURCEDIR
+    ./configure --prefix=/usr \
+		--libdir=/usr/lib64/ \
+		--sysconfdir=/etc \
+		--localstatedir=/var \
+		--enable-static \
+		--enable-shared \
+		--with-plugindir=/usr/lib64/sasl2 \
+		--with-configdir=/etc/sasl2 \
+		--with-dbpath=/etc/sasl2/sasldb2 \
+		--disable-krb4 \
+		--with-gss_impl=heimdal \
+		--enable-gssapi \
+		--with-rc4 \
+		--with-dblib=gdbm \
+		--with-saslauthd=/run/saslauthd \
+		--without-pwcheck \
+		--with-devrandom=/dev/urandom \
+		--enable-sql \
+		--without-mysql \
+		--without-pgsql \
+		--without-sqlite \
+		--with-sqlite3=/usr/lib64 \
+		--enable-anon \
+		--enable-cram \
+		--enable-digest \
+		--enable-httpform \
+		--enable-ntlm \
+		--enable-plain \
+		--enable-login \
+		--enable-auth-sasldb \
+		--enable-alwaystrue \
+		--disable-otp
+}
+
+build () {
+    make
+}
+
+package () {
+    make DESTDIR="$DESTDIR" install $jobs
+	install -Dm755 ../saslauthd.initd "$DESTDIR"/etc/init.d/saslauthd
+}
+

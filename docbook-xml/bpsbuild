@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 name="docbook-xml"
-version="4.5"
+version="4.5.9"
 description="A widely used XML scheme for writing documentation and help"
 source="https://docbook.org/xml/$version/docbook-xml-$version.zip"
 depends="libxml2"

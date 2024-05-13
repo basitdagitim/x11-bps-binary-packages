@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+name="abseil-cpp"
+version="20230802.1"
+description="Abseil Common Libraries (C++), LTS Branch"
+source="https://github.com/abseil/abseil-cpp/archive/refs/tags/$version.tar.gz"
+depends=""
+builddepend="cmake"
+group="media.video"
+
+
+setup(){
+	cd $SOURCEDIR
+    cmake -B $BUILDDIR -G Ninja \
+		-DCMAKE_CXX_STANDARD=17 \
+		-DCMAKE_BUILD_TYPE=MinSizeRel \
+		-DCMAKE_INSTALL_PREFIX=/usr \
+		-DCMAKE_INSTALL_LIBDIR=/usr/lib64 \
+		-DBUILD_SHARED_LIBS=ON \
+		-DABSL_BUILD_TESTING=OFF \
+		-DABSL_BUILD_TEST_HELPERS=OFF \
+		-DABSL_USE_EXTERNAL_GOOGLETEST=OFF \
+		-DABSL_PROPAGATE_CXX_STD=ON \
+		-DABSL_FIND_GOOGLETEST=OFF
+}
+
+build(){
+    cmake --build $BUILDDIR
+}
+
+package(){
+   DESTDIR=$DESTDIR cmake --install $BUILDDIR
+}
+
