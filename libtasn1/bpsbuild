@@ -1,0 +1,21 @@
+#!/bin/bash
+name="libtasn1"
+version="4.19.0"
+description="Manage ASN.1 structures"
+source="https://ftp.gnu.org/gnu/libtasn1/libtasn1-${version}.tar.gz"
+depends=""
+builddepend=""
+group="dev.libs"
+
+
+setup(){
+	cd $SOURCEDIR
+    ./configure --prefix=/usr \
+        --libdir=/usr/lib64
+}
+build(){
+    make
+}
+package(){
+    make DESTDIR=$DESTDIR install
+}

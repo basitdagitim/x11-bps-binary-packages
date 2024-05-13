@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+name="libcroco"
+version="0.6.13"
+description="Generic Cascading Style Sheet (CSS) parsing and manipulation toolkit"
+source="https://gitlab.gnome.org/Archive/libcroco/-/archive/$version/libcroco-$version.tar.gz"
+depends=""
+builddepend=""
+group="dev.libs"
+
+
+setup(){
+	cd $SOURCEDIR
+	./autogen.sh
+    ./configure --prefix=/usr \
+        --libdir=/usr/lib64/
+}
+
+build(){
+    make
+}
+
+package(){
+    make DESTDIR=$DESTDIR install
+}
+
