@@ -4,4 +4,4 @@ sed -i "/elogind-user/d" /etc/pam.d/system-auth
 echo "session    include    elogind-user" >> /etc/pam.d/system-auth
   
 rc-update add elogind
-rc-sercice elogind start
+rc-service elogind start

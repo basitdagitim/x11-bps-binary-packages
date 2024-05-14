@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+name="network-manager-applet"
+version="1.36.0"
+description="Applet for managing network connections"
+source="https://gitlab.gnome.org/GNOME/network-manager-applet/-/archive/$version/network-manager-applet-$version.tar.gz"
+depends="libappindicator,libmm-glib,libnma,libsecret,networkmanager"
+builddepend="meson,gobject-introspection"
+group="net.misc"
+
+
+setup(){
+	cd $SOURCEDIR
+    meson setup $BUILDDIR --prefix=/usr \
+        --libdir=/usr/lib64/ \
+        -Dselinux=false
+
+}
+
+build(){
+    meson compile -C $BUILDDIR
+}
+
+package(){
+    DESTDIR="$DESTDIR" meson install -C $BUILDDIR
+    
+
+}
+

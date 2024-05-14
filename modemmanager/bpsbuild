@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+name="modemmanager"
+version="1.22.0"
+description="Cellular modem control and connectivity"
+source="https://gitlab.freedesktop.org/mobile-broadband/ModemManager/-/archive/$version/ModemManager-$version.tar.gz"
+depends="elogind,eudev,glib,libcap,libffi,libgudev,libpcre2,polkit,util-linux,zlib"
+builddepend=""
+group="net.misc"
+
+setup () {
+	cd $SOURCEDIR
+    meson setup $BUILDDIR \
+        --prefix=/usr \
+        --libdir=/usr/lib64/ \
+        -Dsystemdsystemunitdir=no \
+        -Dsystemd_journal=false \
+        -Ddbus_policy_dir=/usr/share/dbus-1/system.d \
+        -Dpolkit=permissive \
+        -Dvapi=true \
+        -Dmbim=false \
+        -Dqrtr=false \
+        -Dqmi=false
+}
+
+build(){
+    meson compile -C $BUILDDIR
+}
+
+package(){
+    DESTDIR="$DESTDIR" meson install -C $BUILDDIR
+}
+
+
