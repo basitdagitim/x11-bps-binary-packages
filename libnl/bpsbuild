@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+name="libnl"
+version="3.9.0"
+_vrsn="3_9_0"
+description="Netlink Library Suite"
+source="https://github.com/thom311/libnl/releases/download/libnl${_vrsn}/libnl-${version}.tar.gz"
+depends=""
+builddepend=""
+group="dev.libs"
+
+
+setup(){
+	cd $SOURCEDIR
+    ./configure --prefix=/usr \
+        --sysconfdir=/etc \
+        --libdir=/usr/lib64/
+}
+
+build(){
+    make
+}
+
+package(){
+    make install DESTDIR=$DESTDIR
+    # fix terminal cursor issue
+    echo -e "\033[?25h"
+}
+

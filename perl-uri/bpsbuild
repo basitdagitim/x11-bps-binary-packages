@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+name="perl-uri"
+version="5.21"
+description="Uniform Resource Identifiers (absolute and relative)"
+source="https://cpan.metacpan.org/authors/id/O/OA/OALDERS/URI-5.21.tar.gz"
+depends="perl"
+builddepend=""
+group="dev.perl"
+
+
+setup () {
+	cd $SOURCEDIR
+    perl Makefile.PL INSTALLDIRS=vendor
+}
+
+build () {
+    make
+}
+
+package () {
+    make install DESTDIR=$DESTDIR
+}
+

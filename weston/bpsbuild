@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+name="weston"
+version="13.0.0"
+description="A lightweight and functional Wayland compositor"
+source="https://gitlab.freedesktop.org/wayland/weston/-/archive/$version/weston-$version.tar.gz"
+depends="pixman,libdrm,libxkbcommon,libinput,pango,libjpeg-turbo,lcms2,seatd"
+builddepend=""
+group="dev.libs"
+
+
+setup(){
+	cd $SOURCEDIR
+    meson setup $BUILDDIR --prefix=/usr \
+        --libdir=/usr/lib64/ \
+        -Dimage-webp=false \
+        -Dbackend-vnc=false \
+        -Dbackend-rdp=false \
+        -Dxwayland=false \
+        -Dsystemd=false \
+        -Dremoting=false \
+        -Dpipewire=false
+}
+
+build(){
+    meson compile -C $BUILDDIR
+}
+
+package(){
+    DESTDIR="$DESTDIR" meson install -C $BUILDDIR
+}

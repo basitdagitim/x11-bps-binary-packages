@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+name="libindicator"
+version="12.10.1"
+description="A set of symbols and convience functions that all indicators would like to use"
+source="https://launchpad.net/libindicator/12.10/12.10.1/+download/libindicator-12.10.1.tar.gz"
+depends="gtk3"
+builddepend=""
+group="dev.libs"
+
+setup(){
+	cd $SOURCEDIR
+	sed -i "s/-Werror//" {libindicator,tools}/Makefile.am
+    autoreconf -fvi
+    ./configure --prefix=/usr \
+        --libdir=/usr/lib64/ \
+        --with-gtk=3 \
+        --libexecdir=/usr/lib64/libindicator \
+		--sysconfdir=/etc \
+		--disable-static \
+		--disable-tests
+
+}
+
+build(){
+	sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
+    make
+}
+
+package(){
+    make install DESTDIR=$DESTDIR
+}
+
