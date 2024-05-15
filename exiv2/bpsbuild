@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+name="exiv2"
+version="0.28.0"
+description="A library for extracting file metadata"
+source="https://github.com/Exiv2/exiv2/archive/refs/tags/v${version}/exiv2-v${version}.tar.gz"
+depends="expat,zlib"
+builddepend="cmake,ninja"
+group="media.gfx"
+
+
+setup () {
+	cd  $SOURCEDIR
+	cmake -B $BUILDDIR -G Ninja \
+			-DCMAKE_INSTALL_PREFIX=/usr \
+			-DCMAKE_INSTALL_LIBDIR=/usr/lib64 \
+			-DEXIV2_ENABLE_VIDEO=ON \
+			-DEXIV2_BUILD_SAMPLES=OFF \
+			-DEXIV2_ENABLE_BMFF=ON \
+			-DEXIV2_ENABLE_BROTLI=ON \
+			-DEXIV2_ENABLE_INIH=OFF
+}
+
+build(){
+    cmake --build $BUILDDIR
+}
+
+package(){
+   DESTDIR=$DESTDIR cmake --install $BUILDDIR
+}
+

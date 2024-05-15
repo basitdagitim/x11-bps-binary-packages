@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+name="ostree"
+version="2024.1"
+description="Operating system and container binary deployment and upgrades"
+source="https://github.com/ostreedev/ostree/releases/download/v${version}/libostree-${version}.tar.xz"
+depends=""
+builddepend="fuse,gpgme,libarchive,curl,libsoup2,e2fsprogs,libassuan"
+group="dev.util"
+
+setup(){
+	cd $SOURCEDIR
+    autoreconf -fvi
+    ./configure --prefix=/usr \
+		--libdir=/usr/lib64/ \
+		--sysconfdir=/etc \
+		--localstatedir=/var \
+		--sbindir=/usr/bin \
+		--libexecdir=/usr/lib64 \
+		--enable-gtk-doc \
+		--disable-man \
+		--disable-static \
+		--disable-glibtest \
+		--with-curl \
+		--with-openssl \
+		--with-soup3 \
+		--without-libsystemd
+}
+
+build(){
+    make
+}
+
+package(){
+    make install DESTDIR=$DESTDIR
+    # move /usr/lib to /usr/lib64
+    mv $DESTDIR/usr/lib/* $DESTDIR/usr/lib64
+    rm -rf $DESTDIR/usr/lib/
+    # remove garbage files
+    rm -rvf $DESTDIR/etc/grub.d/
+    rm -rvf $DESTDIR/lib/systemd
+    rm -rvf $DESTDIR/usr/libexec/libostree/grub2-*
+
+}
+

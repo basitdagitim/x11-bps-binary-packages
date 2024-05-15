@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 name="gtk-doc"
-version="1.33.2"
+version="1.34.0"
 url="https://gitlab.gnome.org/GNOME/gtk-doc.git/"
 description="GTK+ Documentation Generator"
-source="https://gitlab.gnome.org/GNOME/gtk-doc/-/archive/1.33.2/gtk-doc-$version.tar.gz"
+source="https://gitlab.gnome.org/GNOME/gtk-doc/-/archive/$version/gtk-doc-$version.tar.gz"
 depends="itstool,py3-pygments"
 group="dev.util"
 

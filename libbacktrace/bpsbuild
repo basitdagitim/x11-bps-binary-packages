@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+name="libbacktrace"
+version="1.0.0"
+description="Library to produce symbolic backtraces"
+source="https://download.gnome.org"
+depends="zlib"
+builddepend="libunwind"
+group=""
+
+
+setup(){
+	cd $SOURCEDIR
+    git clone https://github.com/ianlancetaylor/libbacktrace.git
+    cd libbacktrace
+    
+    autoreconf -fi
+  	./configure \
+		--prefix=/usr \
+		--enable-shared \
+		--with-system-libunwind
+}
+
+build(){
+    make
+}
+
+package(){
+    DESTDIR=$DESTDIR make  install
+}
+

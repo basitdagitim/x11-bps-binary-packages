@@ -1,12 +1,11 @@
 #!/usr/bin/env bash
 name="git"
-version="2.44.0"
+version="2.45.0"
 description="the fast distributed version control system"
 depends="curl,expat,perl,openssl,libpcre2,grep,zlib"
 builddepend="python,xmlto,gettext"
-source=("https://mirrors.edge.kernel.org/pub/software/scm/git/git-$version.tar.xz")
-
-group=(dev.vcs)
+source="https://mirrors.edge.kernel.org/pub/software/scm/git/git-$version.tar.xz"
+group="dev.vcs"
 
 setup(){
 cat > config.mak <<EOF
@@ -21,7 +20,11 @@ NO_SYS_POLL_H=1
 NO_INSTALL_HARDLINKS=1
 EOF
 
+
+	cp -prvf $PACKAGEDIR/files/ /tmp/bps/build/
 	cd $SOURCEDIR
+	patch -Np1 -i ../files/fix-t4219-with-sticky-bit.patch
+	
     ./configure --prefix=/usr \
         --libdir=/usr/lib64/ \
         ac_cv_lib_curl_curl_global_init=yes \
@@ -30,10 +33,38 @@ EOF
 }
 
 build(){
-    make
+    make prefix=/usr \
+		DESTDIR="$DESTDIR" \
+		perllibdir="$(_perl_config vendorlib)" \
+		all
+
+	make -C contrib/subtree prefix=/usr DESTDIR="$DESTDIR"
+	make -C contrib/diff-highlight prefix=/usr DESTDIR="$DESTDIR"
+	make prefix=/usr -C contrib/credential/libsecret
+
 }
 
 package(){
-    make DESTDIR="$DESTDIR" install
+    make prefix=/usr \
+		DESTDIR="$DESTDIR" \
+		INSTALLDIRS=vendor \
+		perllibdir="$(_perl_config vendorlib)" \
+		install
+
+	make -C contrib/subtree install prefix=/usr DESTDIR="$DESTDIR"
+
+	mkdir -p "$DESTDIR"/var/git
+
+	install -Dm755 ../files/git-daemon.initd "$DESTDIR"/etc/init.d/git-daemon
+	install -Dm644 ../files/git-daemon.confd "$DESTDIR"/etc/conf.d/git-daemon
+
+	install -Dm755 contrib/diff-highlight/diff-highlight -t "$DESTDIR"/usr/bin/
+
+	install -Dm644 contrib/completion/git-completion.bash \
+		"$DESTDIR"/usr/share/bash-completion/completions/git
+
+	install -Dm644 contrib/completion/git-prompt.sh \
+		"$DESTDIR"/usr/share/git-core/git-prompt.sh
+	install -Dm755 contrib/credential/libsecret/git-credential-libsecret "$DESTDIR"/usr/libexec/git-core
 }
 
