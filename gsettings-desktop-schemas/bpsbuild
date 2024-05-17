@@ -1,23 +1,25 @@
 #!/usr/bin/env bash
 name="gsettings-desktop-schemas"
-version="45.0"
-description=" Collection of GSettings schemas for GNOME desktop "
+version="46.0"
+description="Collection of GSettings schemas for GNOME desktop "
 source="https://gitlab.gnome.org/GNOME/gsettings-desktop-schemas/-/archive/$version/gsettings-desktop-schemas-$version.tar.gz"
-depends=""
+depends="adobe-source-code-pro-fonts,cantarell-fonts,dconf,glib2"
+builddepend="gobject-introspection,meson"
 group="gnome.base"
 
+
 setup(){
-cd $SOURCEDIR
-    sed -i -r 's:"(/system):"/org/gnome\1:g' schemas/*.in
+	cd $SOURCEDIR
+    #sed -i -r "s:"(/system):"/org/gnome\1:g" schemas/*.in
     meson setup $BUILDDIR --prefix=/usr \
         --libdir=/usr/lib64/
 }
 
 build(){
-    ninja -C $BUILDDIR 
+    ninja -C $BUILDDIR
 }
 
 package(){
-   DESTDIR=$DESTDIR ninja -C $BUILDDIR  install
+    DESTDIR=$DESTDIR ninja -C $BUILDDIR install
 }
 
