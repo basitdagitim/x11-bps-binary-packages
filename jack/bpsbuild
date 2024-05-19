@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+name="jack"
+version="1.9.22"
+description='The Jack Audio Connection Kit'
+source="https://github.com/jackaudio/jack2/archive/v${version}/jack2-v${version}.tar.gz"
+depends=""
+builddepend="alsa-lib,dbus,doxygen,expat,libsamplerate,opus,waf"
+group="media.sound"
+
+setup () {
+	cp -prvf $PACKAGEDIR/jack2-1.9.22-db-5.3.patch /tmp/bps/build/
+	cd $SOURCEDIR
+	patch -Np1 -i ../jack2-1.9.22-db-5.3.patch
+    ./waf configure --prefix=/usr \
+		--libdir=/usr/lib64/ \
+		--dbus \
+		--alsa \
+		--classic
+}
+
+build () {
+	./waf build -v
+}
+
+package () {
+	./waf --destdir=$DESTDIR install
+}
+
