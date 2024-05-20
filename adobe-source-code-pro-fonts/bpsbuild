@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+name="adobe-source-code-pro-fonts"
+version="2.042"
+description="Monospaced font family for user interface and coding environments"
+source="https://github.com/adobe-fonts/source-code-pro/archive/refs/tags/2.042R-u/1.062R-i/1.026R-vf.tar.gz"
+depends=""
+builddepend=""
+group="media.fonts"
+
+
+setup(){
+echo ""
+}
+
+build(){
+    echo "" 
+}
+
+package(){
+	cd $SOURCEDIR
+	install -Dt "$DESTDIR/usr/share/fonts/${name%-fonts}" -m644 OTF/*.otf VF/*.otf
+
+}
+
