@@ -23,5 +23,8 @@ build(){
 
 package(){
     make install DESTDIR=$DESTDIR
+    mkdir -p $DESTDIR/lib64
+    cd $DESTDIR/lib64
+ln -s ../usr/lib64/libjpeg.so.8 libjpeg.so.8.2.2
 }
 
