@@ -1,7 +1,7 @@
 #!/bin/bash
 sed -i "/elogind-user/d" /etc/pam.d/system-auth
 
-echo "session    include    elogind-user" >> /etc/pam.d/system-auth
+echo -e "\nsession    include    elogind-user" >> /etc/pam.d/system-auth
   
-rc-update add elogind
+rc-update add elogind default
 rc-service elogind start

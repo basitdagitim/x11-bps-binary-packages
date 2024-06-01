@@ -13,5 +13,5 @@ echo "polkitd:x:102:102:User for polkitd:/var/empty:/sbin/nologin" >> /etc/passw
     chmod -R 700 /etc/polkit-1/rules.d
     chmod -R 700 /usr/share/polkit-1/rules.d
   
-rc-update add polkit
+rc-update add polkit default
 rc-service polkit start

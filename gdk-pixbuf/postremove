@@ -1,1 +1,2 @@
-echo ""
+#!/bin/sh
+sed -i "/gdk-pixbuf-query-loaders/d" /bin/install-remove-to-do
