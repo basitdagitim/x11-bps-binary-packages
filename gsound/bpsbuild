@@ -5,7 +5,7 @@ url="https://wiki.gnome.org/Projects/GSound"
 description="Small library for playing system sounds"
 
 source="https://download.gnome.org/sources/gsound/${version%.*}/gsound-${version}.tar.xz"
-depends="libcanberr"
+depends="libcanberra"
 
 group="media.libs"
 

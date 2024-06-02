@@ -3,8 +3,8 @@ name="networkmanager"
 version="1.46.0"
 description="network management daemon"
 source="https://gitlab.freedesktop.org/NetworkManager/NetworkManager/-/archive/$version/NetworkManager-$version.tar.gz"
-depends="libndp,nss,newt,iptables"
-builddepend="libxslt,gobject-introspection,ppp,curl"
+depends="libndp,nss,newt,iptables,curl"
+builddepend="libxslt,gobject-introspection,ppp"
 group="net.misc.power"
 
 
