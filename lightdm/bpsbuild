@@ -31,11 +31,7 @@ build(){
 package(){
     make install DESTDIR=$DESTDIR
     # create user and group
-    mkdir -p $DESTDIR/etc/group.d
-    mkdir -p $DESTDIR/etc/passwd.d
-    echo "lightdm:x:108:118:Lightdm Display Manager:/var/lib/lightdm-data/:/bin/false" > $DESTDIR/etc/passwd.d/lightdm
-    echo "lightdm:x:118:" > $DESTDIR/etc/group.d/lightdm
-    # install service
+       # install service
     mkdir -p $DESTDIR/etc/init.d
     install ../files/lightdm.initd $DESTDIR/etc/init.d/lightdm
     # generate lightdm-session file
