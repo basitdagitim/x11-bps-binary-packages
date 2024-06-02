@@ -3,7 +3,7 @@ name="gnome-terminal"
 version="3.52.0"
 description="GNOME terminal emulator application"
 source="https://gitlab.gnome.org/GNOME/gnome-terminal/-/archive/${version}/gnome-terminal-${version}.tar.gz"
-depends="dconf,gsettings-desktop-schemas,itstool,libpcre2,vte3,nettle,lz4,p11-kit"
+depends="dconf,gsettings-desktop-schemas,itstool,libpcre2,vte3,nettle,lz4,p11-kit,libhandy"
 builddepend="libhandy,libxml2"
 group="x11.terms"
 
