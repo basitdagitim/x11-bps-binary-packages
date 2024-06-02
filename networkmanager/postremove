@@ -1,0 +1,3 @@
+#!/bin/bash
+rc-service networkmanager stop 
+rc-update del networkmanager default

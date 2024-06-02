@@ -6,7 +6,7 @@ description="Simple plain text editor for GTK 3"
 
 source="https://github.com/stevenhoneyman/l3afpad/archive/refs/tags/v${version}.tar.gz"
 depends="gtk3"
-makedepends="intltool"
+builddepend="intltool"
 group="app.editor"
 
 

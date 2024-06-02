@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 name="mousepad"
 version="0.6.1"
-_version="0.6"
+_ver="0.6"
 url="https://docs.xfce.org/apps/mousepad/start"
 description="Simple text editor for Xfce"
 
 #source=("https://gitlab.xfce.org/apps/mousepad/-/archive/mousepad-${version}/mousepad-mousepad-${version}.tar.gz")
-source="https://archive.xfce.org/src/apps/mousepad/${_version}/mousepad-${version}.tar.bz2"
+source="https://archive.xfce.org/src/apps/mousepad/${_ver}/mousepad-${version}.tar.bz2"
 depends="desktop-file-utils,gtksourceview4"
-makedepends="intltool"
+builddepend="intltool"
 group="app.editor"
 
 
