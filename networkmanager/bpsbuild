@@ -4,7 +4,7 @@ version="1.46.0"
 description="network management daemon"
 source="https://gitlab.freedesktop.org/NetworkManager/NetworkManager/-/archive/$version/NetworkManager-$version.tar.gz"
 depends="libndp,nss,newt,iptables"
-builddepend="libxslt,gobject-introspection,ppp"
+builddepend="libxslt,gobject-introspection,ppp,curl"
 group="net.misc.power"
 
 

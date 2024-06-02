@@ -1,4 +1,4 @@
 #!/bin/bash
-chmod 755 /etc/inint.d/networkmanager
+chmod 755 /etc/init.d/networkmanager
 rc-update add networkmanager default
 rc-service networkmanager start
