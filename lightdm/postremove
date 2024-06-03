@@ -1,1 +1,7 @@
-echo ''
+#!/bin/bash
+sed -i "/lightdm/d" /etc/group
+sed -i "/lightdm/d" /etc/passwd
+
+rc-update del lightdm default
+rc-service lightdm stop
+

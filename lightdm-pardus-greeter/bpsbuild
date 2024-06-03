@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+name="lightdm-pardus-greeter"
+version="0.0.5"
+url="https://github.com/pardus/pardus-lightdm-greeter"
+description="Lightdm greeter for Pardus"
+source=('https://github.com/pardus/pardus-lightdm-greeter/archive/refs/tags/debian/0.0.5.tar.gz')
+depends="lightdm,py3-pygobject,py3-cairo"
+group="x11.misc"
+setup()
+{
+cd $SOURCEDIR
+}
+build(){
+    make
+}
+
+package(){
+    make install DESTDIR=$DESTDIR
+}
+
