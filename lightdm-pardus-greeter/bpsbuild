@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 name="lightdm-pardus-greeter"
-version="0.0.5"
+version="0.0.8"
 url="https://github.com/pardus/pardus-lightdm-greeter"
 description="Lightdm greeter for Pardus"
-source=('https://github.com/pardus/pardus-lightdm-greeter/archive/refs/tags/debian/0.0.5.tar.gz')
+source=('https://github.com/pardus/pardus-lightdm-greeter/archive/refs/tags/debian/0.0.8.tar.gz')
 depends="lightdm,py3-pygobject,py3-cairo"
 group="x11.misc"
 setup()
