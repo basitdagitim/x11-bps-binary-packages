@@ -8,3 +8,6 @@ echo "lightdm:x:108:118:Lightdm Display Manager:/var/lib/lightdm-data/:/bin/fals
 rc-update add lightdm default
 rc-service lightdm start
 
+
+glib-compile-schemas /usr/share/glib-2.0/schemas/
+
