@@ -31,9 +31,9 @@ build(){
 package(){
     make install DESTDIR=$DESTDIR
     # create user and group
-       # install service
+    # install service
     mkdir -p $DESTDIR/etc/init.d
-    install ../files/lightdm.initd $DESTDIR/etc/init.d/lightdm
+    install ../files/lightdm.initd $DESTDIR/etc/init.d/zlightdm
     mkdir -p $DESTDIR/usr/bin/
     # generate lightdm-session file
     #echo "#!/bin/sh" > $DESTDIR/usr/bin/lightdm-session
@@ -41,5 +41,10 @@ package(){
     install -Dm755 ../files/lightdm-session $DESTDIR/usr/bin/lightdm-session
     # fix pam config
     sed -i "s/systemd/elogind/g" $DESTDIR/etc/pam.d/*
+    
+     for level in boot default nonetwork shutdown sysinit ; do
+    mkdir -p ${DESTDIR}/etc/runlevels/$level
+    done
+install ${DESTDIR}/etc/init.d/zlightdm ${DESTDIR}/etc/runlevels/default/zlightdm
 }
 
