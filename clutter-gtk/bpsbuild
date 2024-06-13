@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+name="clutter-gtk"
+version="1.8.4"
+description="Gtk clutter embed library"
+source="https://download.gnome.org/sources/clutter-gtk/${version%.*}/clutter-gtk-$version.tar.xz"
+depends=""
+builddepend="glib,gstreamer,clutter,cogl,gst-plugins-base,python3,libgudev,gobject-introspection"
+group="media.libs"
+
+
+setup(){
+    cd $SOURCEDIR
+    meson setup $BUILDDIR \
+        --prefix=/usr \
+        --libdir=/usr/lib64 \
+        -Ddefault_library=both
+}
+build(){
+    meson compile -C $BUILDDIR
+}
+
+package(){
+    DESTDIR="$DESTDIR" meson install -C $BUILDDIR
+}

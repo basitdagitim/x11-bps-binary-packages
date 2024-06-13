@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+name="clutter-gst"
+version="3.0.27"
+description="Integration library for using GStreamer with Clutter"
+source="https://download.gnome.org/sources/clutter-gst/${version%.*}/clutter-gst-${version}.tar.xz"
+depends=""
+builddepend="glib,gstreamer,clutter,cogl,gst-plugins-base,python3,libgudev,gobject-introspection"
+group="media.libs"
+
+
+setup(){
+    cd $SOURCEDIR
+    autoreconf -fvi
+    ./configure \
+		--prefix=/usr \
+		--libdir=/usr/lib64 \
+		--enable-udev \
+		--enable-introspection \
+		--disable-static
+
+}
+build(){
+    make
+}
+
+package(){
+    make DESTDIR="$DESTDIR" install
+}
+

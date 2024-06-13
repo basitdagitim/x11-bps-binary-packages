@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+name="mobile-broadband-provider-info"
+version="20240407"
+description="Mobile broadband settings for various service providers"
+source="https://download.gnome.org/sources/mobile-broadband-provider-info/$version/mobile-broadband-provider-info-$version.tar.xz"
+depends=""
+builddepend="libxml2-utils,libxslt,meson"
+group="net.misc"
+
+
+setup(){
+    cd $SOURCEDIR
+    meson setup $BUILDDIR \
+    	--prefix=/usr \
+        --libdir=/usr/lib64/
+}
+build(){
+    meson compile -C $BUILDDIR
+}
+
+package(){
+    DESTDIR="$DESTDIR" meson install -C $BUILDDIR
+}

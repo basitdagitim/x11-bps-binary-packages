@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+name="libseccomp"
+version="2.5.5"
+description="interface to the Linux Kernel's syscall filtering mechanism"
+source="https://github.com/seccomp/libseccomp/releases/download/v${version}/libseccomp-${version}.tar.gz"
+depends=""
+builddepend="gperf,cython,python-setuptools"
+group="net.libs"
+
+
+setup(){
+	cd $SOURCEDIR
+    ./configure --prefix=/usr \
+		--libdir=/usr/lib64 \
+		--enable-static \
+		--enable-shared \
+		--disable-silent-rules \
+		--enable-python 
+}
+build(){
+    make
+}
+package(){
+    make install DESTDIR=$DESTDIR
+    mkdir -p $DESTDIR/usr/lib64/python3.11
+	mv $DESTDIR/usr/lib/* $DESTDIR/usr/lib64/
+	rm -rf $DESTDIR/usr/lib
+}
+
+
+Xsetup(){
+	cd $SOURCEDIR
+    ./configure --prefix=/usr \
+		--libdir=/usr/lib64 \
+		--enable-static \
+		--enable-shared \
+		--disable-silent-rules \
+		--enable-python \
+		--disable-code-coverage
+}
