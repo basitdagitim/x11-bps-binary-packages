@@ -15,7 +15,8 @@ build(){
 }
 
 package(){
-touch $DESTDIR/x11-base-base
+mkdir -p  $DESTDIR/tmp
+touch $DESTDIR/tmp/x11-base-base
  
 }
 

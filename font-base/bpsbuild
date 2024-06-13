@@ -15,7 +15,8 @@ build(){
 }
 
 package(){
-touch $DESTDIR/font-base
+mkdir -p $DESTDIR/tmp
+touch $DESTDIR/tmp/font-base
  
 }
 

@@ -16,5 +16,6 @@ build(){
 
 package(){
     make install DESTDIR=$DESTDIR
+    sed -i 's/TÜBİTAK ULAKBİM/BASİT DAĞITIM/g' $DESTDIR/usr/share/pardus/pardus-lightdm-greeter/data/main.ui
 }
 
