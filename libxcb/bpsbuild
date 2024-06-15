@@ -11,12 +11,13 @@ group="x11.libs"
 
 setup(){
     cd $SOURCEDIR
-    export PKG_CONFIG_PATH=/usr/lib/pkgconfig
+    #export PKG_CONFIG_PATH=/usr/lib/pkgconfig
     autoreconf -fvi
     ./configure --prefix=/usr \
+    	--libdir=/usr/lib64 \
 		--enable-xinput \
 		--enable-xkb \
-		--disable-xprint
+		--disable-static
 }
 
 build(){
