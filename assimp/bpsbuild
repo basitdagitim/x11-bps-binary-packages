@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+name="assimp"
+version="5.4.0"
+description="Library to import various well-known 3D model formats in an uniform manner"
+source="https://github.com/assimp/assimp/archive/v${version}.tar.gz"
+depends="zlib"
+builddepend="cmake,ninja"
+group="media.libs"
+
+
+setup(){
+	cd $SOURCEDIR
+    cmake -B $BUILDDIR -G Ninja \
+		-DCMAKE_INSTALL_PREFIX=/usr \
+		-DCMAKE_INSTALL_LIBDIR=/usr/lib64 \
+		-DCMAKE_BUILD_TYPE=Release \
+		-DASSIMP_BUILD_SAMPLES=OFF \
+		-DASSIMP_WARNINGS_AS_ERRORS=OFF \
+		-DASSIMP_BUILD_ASSIMP_TOOLS=ON \
+		-DASSIMP_BUILD_ZLIB=OFF
+}
+
+build(){
+    cmake --build $BUILDDIR
+}
+
+package(){
+   DESTDIR=$DESTDIR cmake --install $BUILDDIR
+}
+
