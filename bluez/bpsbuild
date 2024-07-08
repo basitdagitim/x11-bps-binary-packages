@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+name="bluez"
+version="5.76"
+description="Daemons for the bluetooth protocol stack"
+source="https://mirrors.edge.kernel.org/pub/linux/bluetooth/bluez-$version.tar.gz"
+depends=""
+builddepend="dbus,libical,alsa-lib,json-c,ell,py3-docutils,py3-pygments,cups"
+group="net.wireless"
+
+setup(){
+	cp -prvf $PACKAGEDIR/files/ /tmp/bps/build/
+    cd $SOURCEDIR
+    ./configure --prefix=/usr \
+        --libdir=/usr/lib64 \
+        --libexecdir=/usr/lib64 \
+		--sysconfdir=/etc \
+		--localstatedir=/var \
+		--with-dbusconfdir=/usr/share \
+		--with-udevdir=/usr/lib/udev \
+		--disable-systemd \
+		--enable-btpclient \
+		--enable-midi \
+		--enable-sixaxis \
+		--enable-mesh \
+		--enable-hid2hci \
+		--enable-experimental \
+		--enable-datafiles \
+		--enable-library \
+		--enable-deprecated # libraries and these tools are deprecated
+
+}
+build(){
+    make
+}
+
+package(){
+    make install DESTDIR=$DESTDIR
+    
+    install -Dm755 ../files/bluetooth.initd "$DESTDIR"/etc/init.d/bluetooth
+    install -Dm644 ../files/org.bluez.obex.service "$DESTDIR"/usr/share/dbus-1/services/org.bluez.obex.service
+    
+    install -v -dm755 $DESTDIR/usr/sbin
+    ln -svf ../libexec/bluetooth/bluetoothd $DESTDIR/usr/sbin/bluetoothd
+    install -v -dm755 $DESTDIR/etc/bluetooth
+    install -v -dm755 $DESTDIR/usr/share/doc/
+    install -v -dm755 $DESTDIR/usr/share/doc/bluez-5.76
+    install -v -m644 doc/*.txt $DESTDIR/usr/share/doc/bluez-5.76
+
+
+    
+    mkdir -p $DESTDIR/usr/lib64/
+	mv $DESTDIR/usr/lib/* $DESTDIR/usr/lib64/
+	rm -rf $DESTDIR/usr/lib
+}
