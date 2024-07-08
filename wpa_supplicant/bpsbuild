@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+name="wpa_supplicant"
+version="2.10"
+description="IEEE 802.1X/WPA supplicant for secure wireless transfers"
+source="https://w1.fi/releases/wpa_supplicant-$version.tar.gz"
+depends="dbus,libnl,openssl,pcsc-lite,readline"
+builddepend=""
+group="net.wireless"
+
+setup(){
+    unset CFLAGS
+	unset CXXFLAGS
+
+	export BINDIR=/usr/sbin
+	export LIBDIR=/usr/lib64
+	
+	cp -prvf $PACKAGEDIR/files/ /tmp/bps/build/
+    cd $SOURCEDIR/$name
+   	cp defconfig .config
+
+}
+build(){
+    make 
+    make eapol_test
+}
+
+package(){
+    make DESTDIR=$DESTDIR install
+    # config
+    install -Dm644 ./wpa_supplicant.conf $DESTDIR/etc/wpa_supplicant/wpa_supplicant-example.conf
+    echo "" > $DESTDIR/etc/wpa_supplicant/wpa_supplicant.conf
+    # openrc
+    install -Dm755 ../../files/wpa_supplicant.initd $DESTDIR/etc/init.d/wpa_supplicant
+    install -Dm755 ../../files/wpa_supplicant.confd $DESTDIR/etc/conf.d/wpa_supplicant
+    # stuff
+    install -Dm755 ./eapol_test $DESTDIR/$BINDIR/eapol_test
+    install -Dm755 ../../files/wpa_cli.sh $DESTDIR/etc/wpa_supplicant/wpa_cli.sh
+
+    # dbus
+    install -Dm644 ./dbus/dbus-wpa_supplicant.conf $DESTDIR/usr/share/dbus-1/system.d/wpa_supplicant.conf
+    install -Dm644 ./dbus/fi.w1.wpa_supplicant1.service -t $DESTDIR/usr/share/dbus-1/system-services
+}

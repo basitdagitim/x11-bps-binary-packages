@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+name="wireless_tools"
+version="30_pre9-17"
+description="Tools allowing to manipulate the Wireless Extensions"
+#source="https://hewlettpackard.github.io/wireless-tools/${name}.${version}.tar.gz"
+source="https://salsa.debian.org/debian/wireless-tools/-/archive/debian/30_pre9-17/wireless-tools-debian-${version}.tar.gz"
+depends="attr"
+group="sys.apps"
+
+setup(){
+    cd $SOURCEDIR
+    sed '/BUILD_STATIC =/d' -i Makefile
+}
+build(){
+    make CFLAGS="${CFLAGS} -I." LDFLAGS="${LDFLAGS}"
+}
+
+package(){
+    make INSTALL_DIR="${DESTDIR}/usr/bin" \
+		INSTALL_LIB="${DESTDIR}/usr/lib" \
+		INSTALL_INC="${DESTDIR}/usr/include" \
+		INSTALL_MAN="${DESTDIR}/usr/share/man" \
+		install
+}

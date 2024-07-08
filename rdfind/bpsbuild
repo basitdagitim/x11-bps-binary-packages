@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+name="rdfind"
+version="1.6.0"
+description="Redundant data find - a program that finds duplicate files"
+source="https://rdfind.pauldreik.se/rdfind-$version.tar.gz"
+depends="nettle,glibc"
+builddepend=""
+group="app.misc"
+
+setup(){
+    cd $SOURCEDIR
+    ./configure --prefix=/usr \
+        --libdir=/usr/lib64
+}
+build(){
+    make
+}
+
+package(){
+    make install DESTDIR=$DESTDIR
+}
