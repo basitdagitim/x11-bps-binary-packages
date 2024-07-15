@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+name="pciutils"
+version="3.13.0"
+description="PCI bus configuration space access library and tools"
+source="https://git.kernel.org/pub/scm/utils/pciutils/pciutils.git/snapshot/pciutils-$version.tar.gz"
+depends="hwdata,kmod"
+builddepend="git"
+group="sys.apps"
+
+setup(){
+    cd $SOURCEDIR
+}
+build(){
+    make OPT="$CFLAGS -fPIC -flto=auto" ZLIB=no \
+		SHARED=yes \
+		PREFIX=/usr \
+		SHAREDIR=/usr/share/hwdata \
+		all
+}
+
+package(){
+    make PREFIX="$DESTDIR"/usr \
+		SHARED=yes \
+		SHAREDIR="$DESTDIR"/usr/share/hwdata \
+		LIBDIR="$DESTDIR"/usr/lib64 \
+		install install-lib
+
+	# this is now supplied by the hwids package
+	rm -rf "$DESTDIR"/usr/sbin/update-pciids
+	rm -rf "$DESTDIR"/usr/share/man/man8/update-pciids.8
+	rm -rf "$DESTDIR"/usr/share/hwdata
+}

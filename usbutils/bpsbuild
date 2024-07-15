@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+name="usbutils"
+version="017"
+description="A collection of USB tools to query connected USB devices"
+source="https://git.kernel.org/pub/scm/linux/kernel/git/gregkh/usbutils.git/snapshot/usbutils-$version.tar.gz"
+depends="hwdata"
+builddepend="libusb,eudev"
+group="sys.apps"
+
+setup(){
+    cd $SOURCEDIR
+    autoreconf -fvi
+    ./configure --prefix=/usr\
+    	--libdir=/usr/lib64 \
+    	--datadir=/usr/share/hwdata
+}
+build(){
+    make
+}
+
+package(){
+    make DESTDIR="$DESTDIR" install
+}
