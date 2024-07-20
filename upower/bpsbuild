@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+name="upower"
+version="1.90.4"
+description="Abstraction for enumerating power devices, listening to device events and querying history and statistics"
+source="https://gitlab.freedesktop.org/upower/upower/-/archive/v${version}/upower-v${version}.tar.gz"
+depends="libgudev,libusb,polkit"
+builddepend=""
+group="sys.power"
+
+
+
+setup(){
+	cp -prvf $PACKAGEDIR/upowerd.initd /tmp/bps/build/
+	cd $SOURCEDIR
+    meson setup $BUILDDIR --prefix=/usr \
+        --libdir=/usr/lib64/ \
+        -Dgtk-doc=false     \
+        -Dman=false \
+        -Dsystemdsystemunitdir=no
+}
+
+build(){
+    ninja -C build
+}
+
+package(){
+    mkdir -p $DESTDIR/etc/init.d/
+    DESTDIR=$DESTDIR ninja -C $BUILDDIR install
+    install ../upowerd.initd $DESTDIR/etc/init.d/upowerd
+}
+

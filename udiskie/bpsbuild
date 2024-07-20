@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+name="udiskie"
+version="2.5.1"
+description="Removable disk automounter using udisks"
+source="https://github.com/coldfix/udiskie/archive/refs/tags/v${version}.tar.gz"
+depends="py3-docopt"
+builddepend=""
+group="sys.fs"
+
+
+setup(){
+	echo ""
+	cd $SOURCEDIR
+}
+
+build(){
+	python setup.py build
+	make -C doc
+}
+
+package() {
+	python3 setup.py install --prefix=/usr --root="${DESTDIR}" --install-lib=/usr/lib64/python3.11/site-packages --optimize=1 --skip-build
+	install -dm755 "$DESTDIR/usr/share/zsh/site-functions"
+	install -m644 completions/zsh/* "$DESTDIR/usr/share/zsh/site-functions"
+}
+

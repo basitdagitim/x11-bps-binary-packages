@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+name="xkill"
+version="1.0.6"
+description="Kill tool for the X Window System"
+source="https://xorg.freedesktop.org/archive/individual/app/xkill-${version}.tar.xz"
+depends="libX11,libXmu"
+builddepend="util-macros"
+group="x11.apps"
+
+setup () {
+	cd $SOURCEDIR
+    ./configure --prefix=/usr \
+		--libdir=/usr/lib64/ \
+		--datarootdir=/usr/share
+}
+
+build () {
+    make
+}
+
+package () {
+    make DESTDIR="$DESTDIR" install
+}
+

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 name="fuse"
-version="3.14.1"
+version="3.16.2"
 url="https://github.com/libfuse/libfuse"
 description="Filesystem in Userspace"
 source="https://github.com/libfuse/libfuse/archive/refs/tags/fuse-${version}.tar.gz"
@@ -9,8 +9,8 @@ group="sys.fs"
 
 
 setup(){ 
+cp -prvf $PACKAGEDIR/fuse.initd /tmp/bps/build/
 cd $SOURCEDIR
-cp -prfv $PACKAGEDIR/fuse.initd  ../$SOURCEDIR/fuse.initd 
 
     meson setup $BUILDDIR --prefix=/usr \
         --libdir=/usr/lib64/ \

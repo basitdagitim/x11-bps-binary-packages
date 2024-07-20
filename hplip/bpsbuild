@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+name="hplip"
+version="3.23.5"
+description="Drivers for HP printers and scanners"
+source="https://downloads.sourceforge.net/hplip/hplip-${version}.tar.gz"
+depends="cups,dbus,libjpeg-turbo,zlib"
+builddepend="libusb"
+group="net.print"
+
+setup(){
+	cd $SOURCEDIR
+    ./configure --prefix=/usr \
+        --libdir=/usr/lib64/ \
+		--enable-qt5 \
+		--disable-qt4\
+		--with-docdir=/usr/share/doc/$name \
+		--disable-doc-build \
+		--disable-fax-build \
+		--enable-hpcups-install \
+		--enable-cups-drv-install \
+		--enable-cups-ppd-install \
+		--disable-network-build \
+		--disable-scan-build
+}
+
+build(){
+    make
+}
+
+package(){
+    make -j1 DESTDIR="$DESTDIR/" install
+
+	install -m755 -D prnt/filters/hpps "$DESTDIR"/usr/lib64/cups/filter/hpps
+	
+	mkdir -p $DESTDIR/usr/lib64
+	mv $DESTDIR/usr/lib/* $DESTDIR/usr/lib64/
+	rm -rf $DESTDIR/usr/lib
+}
+
