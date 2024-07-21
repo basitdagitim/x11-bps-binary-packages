@@ -3,7 +3,7 @@ name="gsettings-desktop-schemas"
 version="46.0"
 description="Collection of GSettings schemas for GNOME desktop "
 source="https://gitlab.gnome.org/GNOME/gsettings-desktop-schemas/-/archive/$version/gsettings-desktop-schemas-$version.tar.gz"
-depends="adobe-source-code-pro-fonts,cantarell-fonts,dconf,glib2"
+depends="adobe-source-code-pro-fonts,cantarell-fonts,dconf,glib"
 builddepend="gobject-introspection,meson"
 group="gnome.base"
 

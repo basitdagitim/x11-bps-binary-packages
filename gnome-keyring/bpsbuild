@@ -3,7 +3,7 @@ name="gnome-keyring"
 version="46.1"
 description="GNOME keyring. Stores passwords and encryption keys"
 source="https://download.gnome.org/sources/gnome-keyring/${version%.*}/gnome-keyring-$version.tar.xz"
-depends="dconf,gcr,glib2,glibc,libgcrypt,pam"
+depends="dconf,gcr,glib,glibc,libgcrypt,pam"
 builddepend="docbook-xsl,p11-kit.python"
 group="dev.libs"
 
