@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+name="jack2"
+version="1.9.22"
+description="A frontend for several cd-rippers and mp3 encoders"
+source="https://github.com/jackaudio/jack2/archive/refs/tags/v$version.tar.gz"
+depends="python"
+builddepend=""
+group="media.sound"
+
+setup(){
+	cp -prvf $PACKAGEDIR/jack2-1.9.22-db-5.3.patch /tmp/bps/build/
+    cd $SOURCEDIR
+    patch -Np1 -i ../jack2-1.9.22-db-5.3.patch
+    
+	#rm -rv waflib
+
+	export PYTHONPATH="$PWD:$PYTHONPATH"
+
+	./waf configure \
+		--prefix=/usr \
+		--mandir=/usr/share/man/man1 \
+		--libdir=/usr/lib64 \
+		--dbus \
+		--alsa \
+		--classic
+
+}
+build(){
+    ./waf build -v
+}
+
+package(){
+    export PYTHONPATH="$PWD:$PYTHONPATH"
+  	./waf install --destdir="$DESTDIR"
+
+}

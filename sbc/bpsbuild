@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+name="sbc"
+version="2.0"
+description="Audio codec to connect bluetooth HQ audio devices as headphones or loudspeakers"
+source="https://kernel.googlesource.com/pub/scm/bluetooth/sbc.git/+archive/8dc5d5ba381512ad5b1afa45c63ec6b0a3833244.tar.gz"
+depends=""
+builddepend=""
+group="media.libs"
+
+setup(){
+    cd $SOURCEDIR
+    autoreconf -fvi
+    ./configure --prefix=/usr \
+        --libdir=/usr/lib64
+}
+build(){
+    make
+}
+
+package(){
+    make install DESTDIR=$DESTDIR
+}

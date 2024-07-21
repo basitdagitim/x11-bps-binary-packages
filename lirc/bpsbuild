@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+name="lirc"
+version="0.10.2"
+description="decode and send infra-red signals of many commonly used remote controls"
+source="https://master.dl.sourceforge.net/project/lirc/LIRC/$version/lirc-$version.tar.gz"
+depends="libxslt"
+builddepend=""
+group="app.misc"
+
+setup(){
+    cd $SOURCEDIR
+    autoreconf -fvi
+
+	./configure \
+		--prefix=/usr \
+		--libdir=/usr/lib64 \
+		--sbindir=/usr/bin \
+		--sysconfdir=/etc \
+		--localstatedir=/var \
+		--enable-devinput \
+		--enable-uinput
+
+
+}
+build(){
+    make
+}
+
+package(){
+  	make DESTDIR="$DESTDIR" install
+  	
+  	mkdir -p $DESTDIR/lib64/
+	mv $DESTDIR/lib/* $DESTDIR/lib64/
+	rm -rf $DESTDIR/lib
+
+}

@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+name="speexdsp"
+version="1.2.1"
+description="Audio compression format designed for speech -- DSP"
+source="https://github.com/xiph/speexdsp/archive/refs/tags/SpeexDSP-$version.tar.gz"
+depends=""
+builddepend=""
+group="media.libs"
+
+setup(){
+    cd $SOURCEDIR
+    autoreconf -fvi
+
+	./configure \
+		--prefix=/usr \
+		--libdir=/usr/lib64
+
+}
+build(){
+    make
+}
+
+package(){
+  	make DESTDIR="$DESTDIR" install
+
+}

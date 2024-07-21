@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+name="libasyncns"
+version="0.8"
+description="C library for executing name service queries asynchronously"
+source="http://0pointer.de/lennart/projects/libasyncns/libasyncns-$version.tar.gz"
+depends=""
+builddepend=""
+group="media.libs"
+
+setup(){
+    cd $SOURCEDIR
+    autoreconf -fvi
+
+	./configure \
+		--prefix=/usr \
+		--libdir=/usr/lib64
+
+}
+build(){
+    make
+}
+
+package(){
+  	make DESTDIR="$DESTDIR" install
+
+}
