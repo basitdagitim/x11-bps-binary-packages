@@ -1,23 +1,28 @@
 #!/usr/bin/env bash
 name="gstreamer"
-version="1.22.1"
+version="1.24.5"
 description="Multimedia graph framework - core"
-source="https://gstreamer.freedesktop.org/src/gstreamer/gstreamer-${version}.tar.xz"
+source="https://gitlab.freedesktop.org/gstreamer/gstreamer/-/archive/${version}/gstreamer-${version}.tar.bz2"
 depends="glib,elfutils,libxml2"
+builddepend=""
 group="media.libs"
-
-
 
 setup(){
 	cd $SOURCEDIR
-    meson setup $BUILDDIR --prefix=/usr \
-        --libdir=/usr/lib64/
+    meson setup $BUILDDIR \
+    	--prefix=/usr \
+        --libdir=/usr/lib64/ \
+        -Dgood=disabled \
+        -Dbad=disabled \
+        -Dugly=disabled \
+        -Dlibav=disabled \
+		-Dintrospection=enabled
 }
 
 build(){
-    ninja -C $BUILDDIR
+    meson compile -C $BUILDDIR
 }
 
 package(){
-    DESTDIR=$DESTDIR ninja -C $BUILDDIR install
+    DESTDIR="$DESTDIR" meson install -C $BUILDDIR
 }
