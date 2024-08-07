@@ -3,7 +3,7 @@ name="wget"
 version="1.24.5"
 description="Network utility to retrieve files from the Web"
 source="https://ftp.gnu.org/gnu/wget/wget-$version.tar.gz"
-depends="glibc,zlib,gnutls,libidn2,util-linux,libuuid,libpsl,pcre2,nettle"
+depends="glibc,zlib,gnutls,libidn2,util-linux,libuuid,libpsl,libpcre2,nettle,libunistring"
 builddepend="ca-certificates"
 groups="net.misc"
 setup()
