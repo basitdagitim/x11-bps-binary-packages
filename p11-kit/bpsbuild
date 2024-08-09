@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+name="p11-kit"
+
+version="0.25.0"
+url="https://github.com/p11-glue/p11-kit"
+description="Library for loading and sharing PKCS#11 modules"
+
+source="https://github.com/p11-glue/p11-kit/releases/download/${version}/p11-kit-${version}.tar.xz"
+depends="libtasn1,elfutils,libffi"
+group="app.crypt"
+
+setup(){
+cd $SOURCEDIR
+    meson setup $BUILDDIR --prefix=/usr \
+    -Dlibffi=enabled \
+    -Db_lto=true \
+    -Dtrust_paths=/etc/ssl/certs/ca-certificates.crt
+    
+       # $(use_opt lto "-Db_lto=true" "-Db_lto=false") \
+       # $(use_opt libffi "-Dlibffi=enabled" "-Dlibffi=disabled") \
+      #  -Dtrust_paths=/etc/ssl/certs/ca-certificates.crt
+}
+
+build(){
+    ninja -C $BUILDDIR
+}
+
+package(){
+   DESTDIR=$DESTDIR ninja install -C $BUILDDIR
+}
+

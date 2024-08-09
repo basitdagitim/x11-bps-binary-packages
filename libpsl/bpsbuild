@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+name="libpsl"
+version="0.21.2"
+url="https://github.com/rockdaboot/libpsl"
+description="C library for the Public Suffix List"
+source="https://github.com/rockdaboot/libpsl/releases/download/$version/libpsl-$version.tar.gz"
+depends="libidn2"
+builddepend="python"
+group="net.libs"
+
+setup(){
+   cp -prf $SOURCEDIR /tmp/bps/build/$name-autotools
+    cd /tmp/bps/build/$name-autotools
+    ./configure --prefix=/usr \
+        --libdir=/usr/lib64 \
+       --enable-ld-version-script \
+       --enable-runtime=libidn2 \
+       --enable-builtin
+    cd $SOURCEDIR 
+    meson setup $BUILDDIR --prefix=/usr \
+        --default-library=both \
+        --libdir=/usr/lib64 \
+        -Druntime=libidn2 \
+	-Dbuiltin=true
+}
+
+build(){
+     cd /tmp/bps/build/$name-autotools
+    make $jobs
+    cd $SOURCEDIR
+    ninja -C $BUILDDIR $jobs
+}
+
+package(){
+    cd /tmp/bps/build/$name-autotools
+    make install $jobs
+    cd $SOURCEDIR
+  DESTDIR=$DESTDIR  ninja -C $BUILDDIR install $jobs
+}
+
